@@ -1,6 +1,7 @@
 header {
     height: 7rem;
     align-items: center;
+    background-color: rgba(32, 31, 32, 0.93);
 }
 .sc-image {
     height: 5rem;

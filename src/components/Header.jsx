@@ -6,7 +6,7 @@ import {Cart, List} from "react-bootstrap-icons";
 import {Image, Button} from "react-bootstrap";
 const Header = () => {
     return(
-        <header className="d-flex flex-wrap shadow-lg">
+        <header className="d-flex flex-wrap shadow-lg fixed-top">
 
         <div className="col-2 d-flex justify-content-center">
             <Image src="../img/logo.png" className="sc-image d-none d-lg-block"></Image>
