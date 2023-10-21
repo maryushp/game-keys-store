@@ -1,22 +1,22 @@
 header {
-    height: 10vh;
+    height: 7rem;
     align-items: center;
 }
 .sc-image {
-    height: 8vh;
+    height: 5rem;
     object-fit: cover;
-    margin-left: 10%;
+    margin-left: 1rem;
+    user-select: none;
 }
 .input {
     background-color: rgba(255, 252, 252, 0.34);
-    height: 4vh;
-    font-size: 130%;
+    padding: 0.5rem 0.5rem 0.5rem 1rem;
+    font-size: 1.25rem;
 }
 .input:not(:focus ){
     color: white;
     outline: none;
 }
-button {
-    height: 4vh;
-    margin-left: 30%;
+.button {
+    padding: 0.5rem;
 }
