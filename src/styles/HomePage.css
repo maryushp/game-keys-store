@@ -1,41 +1,6 @@
-.item-image {
-    height: 30rem;
-    width: 20rem;
-    object-fit: cover;
-    user-select: none;
-    transition: all 0.3s;
-}
-
-.item:hover .info-container{
-   display: none;
-}
-
-.item:hover .description-container{
-    display: block;
-}
 .home-page {
     display: flex;
     flex-wrap: wrap;
     margin-top: 5rem;
-}
-
-.item {
-    position: relative;
-    height: 35rem;
-    width: 20rem;
-    margin: 5rem;
-    user-select: none;
-
-}
-.description-container{
-    display: none;
-    position: absolute;
-    width: 20rem;
-    top: 10rem;
-    z-index: 2;
-}
-.item:hover .item-image{
-    transform: scale(1.10);
-    transition: all 0.3s;
-    -webkit-filter: brightness(20%);
+    min-height: 80vh;
 }
