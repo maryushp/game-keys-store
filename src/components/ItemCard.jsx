@@ -11,7 +11,7 @@ const ItemCard = ({item}) => {
                     <h2 className="text-white text-center fw-bolder">{item.description}</h2>
                 </div>
                 <Image className="item-image rounded-4" src = {`data:image/jpg;base64,${item.imageData}`}/>
-                <div className="info-container">
+                <div className="info-container mt-4">
                     <h4 className="text-white text-center fw-bolder">{item.name}</h4>
                     <h5 className="text-white text-center fw-bolder">{item.price}$</h5>
                 </div>

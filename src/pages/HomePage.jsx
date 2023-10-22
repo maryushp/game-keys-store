@@ -17,7 +17,7 @@ const HomePage = () => {
     }, []);
 
     return (
-        <div className="d-flex flex-wrap justify-content-center align-content-center home-page">
+        <div className="d-flex flex-wrap justify-content-center align-content-center home-page ">
             { isLoading ?
                 (
                     <div className="d-flex flex-wrap justify-content-center m-5">
