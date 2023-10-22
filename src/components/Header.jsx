@@ -4,12 +4,15 @@ import "../styles/Header.css"
 import {Input} from "reactstrap";
 import {Cart, List} from "react-bootstrap-icons";
 import {Image, Button} from "react-bootstrap";
+import {Link} from "react-router-dom";
 const Header = () => {
     return(
         <header className="d-flex flex-wrap shadow-lg fixed-top">
 
         <div className="col-2 d-flex justify-content-center">
-            <Image src="../img/logo.png" className="sc-image d-none d-lg-block"></Image>
+            <Link to="/">
+                <Image src="../img/logo.png" className="sc-image d-none d-lg-block"></Image>
+            </Link>
             <List color="white" size="36" className="d-block d-lg-none "/>
         </div>
 
