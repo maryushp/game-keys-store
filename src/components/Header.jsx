@@ -3,14 +3,15 @@ import "../styles/Header.css"
 
 import {Input} from "reactstrap";
 import {Cart, List} from "react-bootstrap-icons";
-import {Image, Button, Form} from "react-bootstrap";
-import {Link, useNavigate} from "react-router-dom";
+import {Image, Button} from "react-bootstrap";
+import {Link, useNavigate, useLocation} from "react-router-dom";
 import {getAllCategories} from "../utils/getAllCategoriesAPI";
 
 const Header = ({ updateCategory, selectedCategory }) => {
     const [isOpen, setIsOpen] = useState(false);
     const [categories, setCategories] = useState([]);
     const navigate = useNavigate();
+    const location = useLocation();
 
     const handleAllCategories = () => {
         getAllCategories()
@@ -44,12 +45,23 @@ const Header = ({ updateCategory, selectedCategory }) => {
             <List color="white" size="36" className="d-block d-lg-none "/>
         </div>
 
-        <div className="d-flex flex-wrap col-9 col-md-8  col-lg-7 p-3 align-items-center justify-content-center gap-2">
+        <div className="d-flex flex-wrap col-9 col-md-8  col-lg-7 p-3 align-items-center justify-content-center gap-5">
 
             <div className="d-none d-lg-block">
-                <Button variant="outline-secondary" className="button btn btn-outline-light rounded-5 fw-bolder "
-                    onClick={() => handleButtonCategories()}
-                >CATEGORIES</Button>
+
+                {location.pathname.includes("/game") ?
+                    (
+                        <></>
+                    )
+                    :
+                    (
+                        <Button variant="outline-secondary" className="button btn btn-outline-light rounded-5 fw-bolder border-2"
+                                onClick={() => handleButtonCategories()}>
+                            CATEGORIES
+                        </Button>
+                    )
+                }
+
             </div>
                 <div className={`d-flex flex-wrap position-absolute justify-content-center gap-3 align-items-center p-5 dropdown ${isOpen ? 'dropdown-animation show' : 'dropdown-animation'}`}>
                     {categories.map((category) => (
@@ -57,9 +69,9 @@ const Header = ({ updateCategory, selectedCategory }) => {
                             key={category.id}
                             variant={selectedCategory.includes(category.id) ? "light" : "outline"}
                             className={selectedCategory.includes(category.id) ?
-                                "btn rounded-5 fw-bolder button-category"
+                                "btn rounded-5 fw-bolder button-category-nav"
                                 :
-                                "btn btn-outline-light rounded-5 fw-bolder button-category-nav"
+                                "btn btn-outline-light rounded-5 fw-bolder button-category-nav border-2"
                             }
                             onClick={() => toggleCategory(category.id)}
                         >
@@ -82,7 +94,7 @@ const Header = ({ updateCategory, selectedCategory }) => {
         </div>
 
         <div className="d-none d-md-flex flex-wrap  col-2 col-lg-3 justify-content-end align-items-center gap-5">
-            <Button variant="outline-secondary" className="d-none d-lg-block button btn btn-outline-light rounded-5 fw-bolder">SIGN IN</Button>
+            <Button variant="outline-secondary" className="d-none d-lg-block button btn btn-outline-light rounded-5 fw-bolder border border-2">SIGN IN</Button>
             <Cart color="white" className="me-5 d-none d-md-block" size="28"/>
         </div>
 
