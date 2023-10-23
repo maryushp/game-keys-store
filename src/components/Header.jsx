@@ -63,29 +63,36 @@ const Header = ({ updateCategory, selectedCategory }) => {
                 }
 
             </div>
-                <div className={`d-flex flex-wrap position-absolute justify-content-center gap-3 align-items-center p-5 dropdown ${isOpen ? 'dropdown-animation show' : 'dropdown-animation'}`}>
-                    {categories.map((category) => (
-                        <Button
-                            key={category.id}
-                            variant={selectedCategory.includes(category.id) ? "light" : "outline"}
-                            className={selectedCategory.includes(category.id) ?
-                                "btn rounded-5 fw-bolder button-category-nav"
-                                :
-                                "btn btn-outline-light rounded-5 fw-bolder button-category-nav border-2"
-                            }
-                            onClick={() => toggleCategory(category.id)}
-                        >
-                            {category.name}
-                        </Button>
-                    ))}
-                    <Button
-                        variant="light"
-                        className="btn rounded-5 fw-bolder button-category-nav"
-                        onClick={() => {updateCategory([])}}
-                    >
-                        Clear All
-                    </Button>
-                </div>
+                {location.pathname.includes("/game") ?
+                    (<></>) :
+                    (
+                        <div className={`w-100 d-lg-flex d-none flex-wrap position-absolute justify-content-center gap-3 align-items-center p-5 dropdown ${isOpen ? 'dropdown-animation show' : 'dropdown-animation'}`}>
+                            {categories.map((category) => (
+                                <Button
+                                    key={category.id}
+                                    variant={selectedCategory.includes(category.id) ? "light" : "outline"}
+                                    className={selectedCategory.includes(category.id) ?
+                                        "btn rounded-5 fw-bolder button-category-nav"
+                                        :
+                                        "btn btn-outline-light rounded-5 fw-bolder button-category-nav border-2"
+                                    }
+                                    onClick={() => toggleCategory(category.id)}
+                                >
+                                    {category.name}
+                                </Button>
+                            ))}
+                            <Button
+                                variant="light"
+                                className="btn rounded-5 fw-bolder button-category-nav"
+                                onClick={() => {updateCategory([])}}
+                            >
+                                Clear All
+                            </Button>
+                        </div>
+                    )
+                }
+
+
             <div className="col-11 col-lg-8">
                 <Input className="input rounded-5 border-0">
                 </Input>
