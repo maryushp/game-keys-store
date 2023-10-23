@@ -1,18 +1,19 @@
 import React, { useEffect, useState } from "react";
-import {useParams} from "react-router-dom";
+import {Link, useParams, useNavigate} from "react-router-dom";
 import "../styles/ItemPage.css"
-import {getItemById} from "../utils/getItemById";
+import {getItemByIdAPI} from "../utils/getItemByIdAPI";
 import {ClipLoader} from "react-spinners";
 import {Button, Image} from "react-bootstrap";
 import {Cart} from "react-bootstrap-icons";
 
-const ItemPage = () => {
+const ItemPage = ({updateCategory}) => {
     const {id} = useParams();
     const [item, setItem] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
+    const navigate = useNavigate();
 
     useEffect(() => {
-        getItemById(id)
+        getItemByIdAPI(id)
             .then((data) => setItem(data))
             .catch((error) => console.error(error))
             .finally(() => setTimeout(() => setIsLoading(false), 10));
@@ -50,7 +51,14 @@ const ItemPage = () => {
                             <div className="d-flex flex-wrap justify-content-center gap-5 mt-5">
                                 {item.categories.map((category) => (
                                     <div key={category.id}>
-                                        <Button className="btn btn-light button-category text-black fw-bolder rounded-4 fs-5">{category.name}</Button>
+                                        <Button
+                                            className="btn btn-light button-category text-black fw-bolder rounded-4 fs-5"
+                                            onClick={() => {
+                                                navigate("/")
+                                                updateCategory([category.id]);
+                                            }}
+                                        >
+                                            {category.name}</Button>
                                     </div>
                                 ))}
                             </div>

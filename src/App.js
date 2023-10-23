@@ -5,12 +5,21 @@ import HomePage from "./pages/HomePage";
 import ItemPage from "./pages/ItemPage";
 
 function App() {
-  return (
+
+    const [selectedCategory, setSelectedCategory] = React.useState([]);
+
+    const updateCategory = (category) => {
+        console.log("Selected Categories:", category);
+        setSelectedCategory(category);
+    };
+
+
+    return (
       <>
-      <Header/>
+      <Header updateCategory={updateCategory} selectedCategory={selectedCategory}/>
           <Routes>
-              <Route element={<HomePage/>} path="/"/>
-              <Route element={<ItemPage/>} path="/game/:id"/>
+              <Route element={<HomePage selectedCategory={selectedCategory}/>} path="/"/>
+              <Route element={<ItemPage updateCategory={updateCategory}/>} path="/game/:id"/>
           </Routes>
       </>
   );

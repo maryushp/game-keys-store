@@ -6,7 +6,7 @@ import {Link} from "react-router-dom";
 const ItemCard = ({item}) => {
     return(
         <Link to={`/game/${item.id}`}>
-            <div key={item.id} className="item rounded-4 col-3">
+            <div key={item.id} className="item rounded-4 col-3 z-5">
                 <div className="description-container">
                     <h2 className="text-white text-center fw-bolder">{item.description}</h2>
                 </div>
