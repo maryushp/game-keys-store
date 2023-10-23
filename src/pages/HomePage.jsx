@@ -13,6 +13,7 @@ const HomePage = ({selectedCategory}) => {
     const handleItemsByCategories = () => {
         console.log("-----------------------------------------------------------------")
         console.log("Is empty - " + selectedCategory);
+        setIsLoading(true)
         if(selectedCategory === null || selectedCategory.length === 0) {
             getAllItems()
                 .then((data) => {
@@ -22,7 +23,7 @@ const HomePage = ({selectedCategory}) => {
                 .catch((error) => {
                     console.error(error)
                 })
-                .finally(() => setTimeout(() => setIsLoading(false), 0))
+                .finally(() => setTimeout(() => setIsLoading(false), 100))
         } else {
             console.log("categories selected in Home: " + selectedCategory);
             getItemsByCategories(selectedCategory)
@@ -30,7 +31,7 @@ const HomePage = ({selectedCategory}) => {
                     console.log("contet when filtering in handleItemsByCat" + data.content);
                     setItems(data.content)})
                 .catch((error) => console.log(error))
-                .finally(() => setTimeout(() => setIsLoading(false), 0))
+                .finally(() => setTimeout(() => setIsLoading(false), 100))
         }
         console.log("-----------------------------------------------------------------")
     }
