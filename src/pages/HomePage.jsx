@@ -11,13 +11,10 @@ const HomePage = ({selectedCategory}) => {
     const [isLoading, setIsLoading] = useState(true);
 
     const handleItemsByCategories = () => {
-        console.log("-----------------------------------------------------------------")
-        console.log("Is empty - " + selectedCategory);
         setIsLoading(true)
         if(selectedCategory === null || selectedCategory.length === 0) {
             getAllItems()
                 .then((data) => {
-                    console.log("contet when not filtering in handleItemsByCat" + data.content);
                     setItems(data.content);
                 })
                 .catch((error) => {
@@ -25,15 +22,12 @@ const HomePage = ({selectedCategory}) => {
                 })
                 .finally(() => setTimeout(() => setIsLoading(false), 100))
         } else {
-            console.log("categories selected in Home: " + selectedCategory);
             getItemsByCategories(selectedCategory)
                 .then((data) => {
-                    console.log("contet when filtering in handleItemsByCat" + data.content);
                     setItems(data.content)})
                 .catch((error) => console.log(error))
                 .finally(() => setTimeout(() => setIsLoading(false), 100))
         }
-        console.log("-----------------------------------------------------------------")
     }
 
     useEffect(() => {
@@ -61,6 +55,7 @@ const HomePage = ({selectedCategory}) => {
                             <div className="d-flex flex-wrap justify-content-center home-page">
                                 {items.map((item) => <ItemCard key={item.id} item={item}/>)}
                             </div>
+
                         </div>
                     )
                 }
