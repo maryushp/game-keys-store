@@ -21,3 +21,27 @@ header {
 .button {
     padding: 0.5rem;
 }
+
+.button-category-nav{
+    width: 10rem;
+    height: 3rem;
+}
+
+.dropdown {
+    top: 7rem;
+    left:0;
+    background-color: rgba(32, 31, 32, 0.9);
+}
+
+.dropdown-animation {
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-20px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.dropdown-animation.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}

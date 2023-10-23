@@ -1,11 +1,39 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import "../styles/Header.css"
 
 import {Input} from "reactstrap";
 import {Cart, List} from "react-bootstrap-icons";
-import {Image, Button} from "react-bootstrap";
-import {Link} from "react-router-dom";
-const Header = () => {
+import {Image, Button, Form} from "react-bootstrap";
+import {Link, useNavigate} from "react-router-dom";
+import {getAllCategories} from "../utils/getAllCategoriesAPI";
+
+const Header = ({ updateCategory, selectedCategory }) => {
+    const [isOpen, setIsOpen] = useState(false);
+    const [categories, setCategories] = useState([]);
+    const navigate = useNavigate();
+
+    const handleAllCategories = () => {
+        getAllCategories()
+            .then((data) => setCategories(data.content))
+            .catch((error) => console.log(error))
+    }
+
+    useEffect(() => {
+        handleAllCategories();
+    }, []);
+
+    const handleButtonCategories = () => {
+        setIsOpen(!isOpen);
+    }
+
+    const toggleCategory = (categoryId) => {
+        if (selectedCategory.includes(categoryId)) {
+            updateCategory(selectedCategory.filter((id) => id !== categoryId));
+        } else {
+            updateCategory([...selectedCategory, categoryId]);
+        }
+    };
+
     return(
         <header className="d-flex flex-wrap shadow-lg fixed-top">
 
@@ -19,9 +47,33 @@ const Header = () => {
         <div className="d-flex flex-wrap col-9 col-md-8  col-lg-7 p-3 align-items-center justify-content-center gap-2">
 
             <div className="d-none d-lg-block">
-                <Button variant="outline-secondary" className="button btn btn-outline-light rounded-5 fw-bolder ">CATEGORIES</Button>
+                <Button variant="outline-secondary" className="button btn btn-outline-light rounded-5 fw-bolder "
+                    onClick={() => handleButtonCategories()}
+                >CATEGORIES</Button>
             </div>
-
+                <div className={`d-flex flex-wrap position-absolute justify-content-center gap-3 align-items-center p-5 dropdown ${isOpen ? 'dropdown-animation show' : 'dropdown-animation'}`}>
+                    {categories.map((category) => (
+                        <Button
+                            key={category.id}
+                            variant={selectedCategory.includes(category.id) ? "light" : "outline"}
+                            className={selectedCategory.includes(category.id) ?
+                                "btn rounded-5 fw-bolder button-category"
+                                :
+                                "btn btn-outline-light rounded-5 fw-bolder button-category-nav"
+                            }
+                            onClick={() => toggleCategory(category.id)}
+                        >
+                            {category.name}
+                        </Button>
+                    ))}
+                    <Button
+                        variant="light"
+                        className="btn rounded-5 fw-bolder button-category-nav"
+                        onClick={() => {updateCategory([])}}
+                    >
+                        Clear All
+                    </Button>
+                </div>
             <div className="col-11 col-lg-8">
                 <Input className="input rounded-5 border-0">
                 </Input>
