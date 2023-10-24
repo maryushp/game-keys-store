@@ -46,7 +46,7 @@ const HomePage = ({selectedCategory}) => {
             : "Games selected based on your criteria";
 
     return (
-        <div className=" justify-content-center align-content-center">
+        <div className="justify-content-center align-content-center">
                 {isLoading ? (
                         <div className="d-flex flex-wrap justify-content-center m-5 spinner">
                             <ClipLoader color="#ffffff" size={60}/>
@@ -55,9 +55,11 @@ const HomePage = ({selectedCategory}) => {
                     (
                         <div className="d-flex flex-column justify-content-center align-content-center">
                             <h1 className="text-center text-white main-text">{mainText}</h1>
+
                             <div className="d-flex flex-wrap justify-content-center home-page">
                                 {items.map((item) => <ItemCard key={item.id} item={item}/>)}
                             </div>
+
                             <div className="mt-5 d-flex flex-wrap justify-content-center mb-5">
                                 <ArrowLeftCircle
                                     className={`m-2 ${isFirst ? "disabled text-secondary" : "text-white page-arrow"}`}
@@ -81,8 +83,8 @@ const HomePage = ({selectedCategory}) => {
                                     size={36}
                                     onClick={isLast ? null : () => setCurrentPage(currentPage + 1)}
                                 />
-
                             </div>
+
                         </div>
                     )
                 }
