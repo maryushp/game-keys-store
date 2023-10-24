@@ -1,6 +1,6 @@
-export const getAllItems = async () => {
+export const getAllItems = async (data) => {
     try {
-        const response = await fetch(`http://localhost:8080/item?size=8`);
+        const response = await fetch(`http://localhost:8080/item?size=8&page=${data-1}`);
         if (!response.ok) {
             throw new Error('Failed to fetch items');
         }
