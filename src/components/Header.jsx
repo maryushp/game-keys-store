@@ -70,11 +70,11 @@ const Header = ({ updateCategory, selectedCategory }) => {
                             {categories.map((category) => (
                                 <Button
                                     key={category.id}
-                                    variant={selectedCategory.includes(category.id) ? "light" : "outline"}
+                                    variant={selectedCategory.includes(category.id) ? "info" : "light"}
                                     className={selectedCategory.includes(category.id) ?
                                         "btn rounded-5 fw-bolder button-category-nav"
                                         :
-                                        "btn btn-outline-light rounded-5 fw-bolder button-category-nav border-2"
+                                        "btn rounded-5 fw-bolder button-category-nav border-2"
                                     }
                                     onClick={() => toggleCategory(category.id)}
                                 >
@@ -82,7 +82,7 @@ const Header = ({ updateCategory, selectedCategory }) => {
                                 </Button>
                             ))}
                             <Button
-                                variant="light"
+                                variant="danger"
                                 className="btn rounded-5 fw-bolder button-category-nav"
                                 onClick={() => {updateCategory([])}}
                             >
