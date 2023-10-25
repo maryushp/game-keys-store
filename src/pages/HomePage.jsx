@@ -16,7 +16,7 @@ const HomePage = ({selectedCategory, inputResult}) => {
     const pageNumbers = Array.from({ length: totalPages }, (_, index) => index + 1);
     const [items, setItems] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
-    const size = Math.floor((window.innerWidth * 0.9) / 320) * 2
+    const size = Math.floor((window.innerWidth * 0.9) / 350) * 2
 
     const handleData = (data) => {
         setItems(data.content);
