@@ -1,7 +1,7 @@
-export const getItemsByCategories = async (data) => {
+export const getItemsByCategories = async (categories, page, size) => {
     try {
-        const catIds = data.map(item => item).join(',');
-        const response = await fetch(`http://localhost:8080/item/search/by-categories?catIds=${catIds}`);
+        const catIds = categories.map(item => item).join(',');
+        const response = await fetch(`http://localhost:8080/item/search/by-categories?catIds=${catIds}&page=${page-1}&size=${size}`);
         if (!response.ok) {
             throw new Error('Failed to fetch items');
         }

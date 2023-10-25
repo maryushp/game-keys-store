@@ -1,17 +1,19 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import "../styles/Header.css"
 
 import {Input} from "reactstrap";
 import {Cart, List} from "react-bootstrap-icons";
 import {Image, Button} from "react-bootstrap";
-import {Link, useNavigate, useLocation} from "react-router-dom";
+import {Link, useLocation} from "react-router-dom";
 import {getAllCategories} from "../utils/getAllCategoriesAPI";
+import _ from "lodash";
 
-const Header = ({ updateCategory, selectedCategory }) => {
+const Header = ({ updateCategory, selectedCategory, setInputResult}) => {
     const [isOpen, setIsOpen] = useState(false);
     const [categories, setCategories] = useState([]);
-    const navigate = useNavigate();
     const location = useLocation();
+    const inputRef = useRef(null);
+
 
     const handleAllCategories = () => {
         getAllCategories()
@@ -27,13 +29,25 @@ const Header = ({ updateCategory, selectedCategory }) => {
         setIsOpen(!isOpen);
     }
 
+    const handleInputChange = _.debounce((e) => {
+        setInputResult(e.target.value)
+        updateCategory([])
+    }, 700)
+
     const toggleCategory = (categoryId) => {
         if (selectedCategory.includes(categoryId)) {
             updateCategory(selectedCategory.filter((id) => id !== categoryId));
+            clearInput()
         } else {
             updateCategory([...selectedCategory, categoryId]);
+            clearInput()
         }
     };
+
+    const clearInput = () => {
+        inputRef.current.value = "";
+        setInputResult("");
+    }
 
     return(
         <header className="d-flex flex-wrap shadow-lg fixed-top">
@@ -84,7 +98,7 @@ const Header = ({ updateCategory, selectedCategory }) => {
                             <Button
                                 variant="danger"
                                 className="btn rounded-5 fw-bolder button-category-nav"
-                                onClick={() => {updateCategory([])}}
+                                onClick={() => {clearInput(); updateCategory([]) }}
                             >
                                 Clear All
                             </Button>
@@ -92,11 +106,16 @@ const Header = ({ updateCategory, selectedCategory }) => {
                     )
                 }
 
+            {location.pathname.includes("/game") ?
+                (<h1 className="text-white text-center">Game details</h1>) :
+                (
+                    <div className="col-11 col-lg-8">
+                        <Input className="input rounded-5 border-0" innerRef={inputRef} onChange={(e) => handleInputChange(e)}>
+                        </Input>
+                    </div>
+                )
+            }
 
-            <div className="col-11 col-lg-8">
-                <Input className="input rounded-5 border-0">
-                </Input>
-            </div>
 
         </div>
 

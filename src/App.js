@@ -7,6 +7,7 @@ import ItemPage from "./pages/ItemPage";
 function App() {
 
     const [selectedCategory, setSelectedCategory] = React.useState([]);
+    const [inputResult, setInputResult] = React.useState("")
 
     const updateCategory = (category) => {
         console.log("Selected Categories:", category);
@@ -16,9 +17,9 @@ function App() {
 
     return (
       <>
-      <Header updateCategory={updateCategory} selectedCategory={selectedCategory}/>
+      <Header updateCategory={updateCategory} selectedCategory={selectedCategory} setInputResult={setInputResult}/>
           <Routes>
-              <Route element={<HomePage selectedCategory={selectedCategory}/>} path="/"/>
+              <Route element={<HomePage selectedCategory={selectedCategory} inputResult={inputResult}/>} path="/"/>
               <Route element={<ItemPage updateCategory={updateCategory}/>} path="/game/:id"/>
           </Routes>
       </>

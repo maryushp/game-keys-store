@@ -1,6 +1,6 @@
-export const getAllItems = async (data, size) => {
+export const searchItemsByName = async (input, page, size) => {
     try {
-        const response = await fetch(`http://localhost:8080/item?size=${size}&page=${data-1}`);
+        const response = await fetch(`http://localhost:8080/item/search/by-name?name=${input}&size=${size}&page=${page - 1}`);
         if (!response.ok) {
             throw new Error('Failed to fetch items');
         }
