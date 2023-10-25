@@ -107,7 +107,7 @@ const Header = ({ updateCategory, selectedCategory, setInputResult}) => {
                 }
 
             {location.pathname.includes("/game") ?
-                (<h1 className="text-white text-center">Game details</h1>) :
+                (<h1 className="text-white">Details</h1>) :
                 (
                     <div className="col-11 col-lg-8">
                         <Input className="input rounded-5 border-0" innerRef={inputRef} onChange={(e) => handleInputChange(e)}>
