@@ -1,10 +1,9 @@
 import React, {useEffect, useState} from "react";
-import {searchItemsByName} from "../utils/searchItemsByNameAPI";
-import {getAllItems} from "../utils/getAllItemsAPI";
+import {searchItemsByName, getAllItems} from "../utils/ItemsAPI";
 import "../styles/HomePage.css"
 import {ClipLoader} from "react-spinners";
 import ItemCard from "../components/ItemCard";
-import {getItemsByCategories} from "../utils/getItemsByCategoriesAPI";
+import {getItemsByCategories} from "../utils/CategoriesAPI";
 import {Button} from "react-bootstrap";
 import {ArrowLeftCircle, ArrowRightCircle} from "react-bootstrap-icons";
 

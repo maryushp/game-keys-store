@@ -5,7 +5,7 @@ import {Input} from "reactstrap";
 import {Cart, List} from "react-bootstrap-icons";
 import {Image, Button} from "react-bootstrap";
 import {Link, useLocation} from "react-router-dom";
-import {getAllCategories} from "../utils/getAllCategoriesAPI";
+import {getAllCategories} from "../utils/CategoriesAPI";
 import _ from "lodash";
 
 const Header = ({ updateCategory, selectedCategory, setInputResult}) => {

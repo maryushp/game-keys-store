@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import {Link, useParams, useNavigate} from "react-router-dom";
+import {useParams, useNavigate} from "react-router-dom";
 import "../styles/ItemPage.css"
-import {getItemByIdAPI} from "../utils/getItemByIdAPI";
+import {getItemById} from "../utils/ItemsAPI";
 import {ClipLoader} from "react-spinners";
 import {Button, Image} from "react-bootstrap";
 import {Cart} from "react-bootstrap-icons";
@@ -13,7 +13,7 @@ const ItemPage = ({updateCategory}) => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        getItemByIdAPI(id)
+        getItemById(id)
             .then((data) => setItem(data))
             .catch((error) => console.error(error))
             .finally(() => setTimeout(() => setIsLoading(false), 10));
