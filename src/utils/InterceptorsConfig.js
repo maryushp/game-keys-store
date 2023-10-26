@@ -29,6 +29,7 @@ class FetchInterceptors {
                 if (response.status === 401) {
                     removeCookie('token');
                     localStorage.removeItem('userData');
+                    window.location.reload()
                 }
                 return response;
             },
