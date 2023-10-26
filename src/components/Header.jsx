@@ -7,6 +7,7 @@ import {Image, Button} from "react-bootstrap";
 import {Link, useLocation} from "react-router-dom";
 import {getAllCategories} from "../utils/CategoriesAPI";
 import _ from "lodash";
+import AuthPanel from "./AuthPanel";
 
 const Header = ({ updateCategory, selectedCategory, setInputResult}) => {
     const [isOpen, setIsOpen] = useState(false);
@@ -14,6 +15,12 @@ const Header = ({ updateCategory, selectedCategory, setInputResult}) => {
     const location = useLocation();
     const inputRef = useRef(null);
 
+    const [isSignInPanelOpen, setIsSignInPanelOpen] = useState(false);
+
+
+    const toggleSignInPanel = () => {
+        setIsSignInPanelOpen(!isSignInPanelOpen);
+    };
 
     const handleAllCategories = () => {
         getAllCategories()
@@ -120,9 +127,16 @@ const Header = ({ updateCategory, selectedCategory, setInputResult}) => {
         </div>
 
         <div className="d-none d-md-flex flex-wrap  col-2 col-lg-3 justify-content-end align-items-center gap-5">
-            <Button variant="outline-secondary" className="d-none d-lg-block button btn btn-outline-light rounded-5 fw-bolder border border-2">SIGN IN</Button>
+            <Button variant="outline-secondary"
+                    className="d-none d-lg-block button btn btn-outline-light rounded-5 fw-bolder border border-2"
+                    onClick={toggleSignInPanel}
+            >
+                {localStorage.getItem('userData') ? "ACCOUNT" : "SIGN IN"}
+            </Button>
             <Cart color="white" className="me-5 d-none d-md-block" size="28"/>
         </div>
+
+            {isSignInPanelOpen && <AuthPanel/>}
 
         </header>
     )
