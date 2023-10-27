@@ -3,6 +3,8 @@ import {Routes, Route } from "react-router-dom";
 import Header from "./components/Header";
 import HomePage from "./pages/HomePage";
 import ItemPage from "./pages/ItemPage";
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
 
@@ -17,7 +19,19 @@ function App() {
 
     return (
       <>
-      <Header updateCategory={updateCategory} selectedCategory={selectedCategory} setInputResult={setInputResult}/>
+          <ToastContainer
+              position="bottom-right"
+              autoClose={3000}
+              limit={5}
+              hideProgressBar={false}
+              newestOnTop={false}
+              closeOnClick
+              rtl={false}
+              pauseOnFocusLoss={false}
+              draggable
+              pauseOnHover
+              theme="dark"/>
+          <Header updateCategory={updateCategory} selectedCategory={selectedCategory} setInputResult={setInputResult}/>
           <Routes>
               <Route element={<HomePage selectedCategory={selectedCategory} inputResult={inputResult}/>} path="/"/>
               <Route element={<ItemPage updateCategory={updateCategory}/>} path="/game/:id"/>
