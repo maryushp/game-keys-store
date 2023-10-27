@@ -73,6 +73,7 @@ const AuthPanel = () => {
 
     const handleSignOut = () => {
         removeCookie('token')
+        removeCookie('cart')
         localStorage.removeItem('userData')
         window.location.reload();
     }

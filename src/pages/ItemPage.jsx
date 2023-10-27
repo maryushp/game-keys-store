@@ -4,7 +4,9 @@ import "../styles/ItemPage.css"
 import {getItemById} from "../utils/ItemsAPI";
 import {ClipLoader} from "react-spinners";
 import {Button, Image} from "react-bootstrap";
-import {Cart} from "react-bootstrap-icons";
+import {Cart, Check} from "react-bootstrap-icons";
+import { toast } from 'react-toastify';
+import {setCookie, removeCookie, getCookie} from '../utils/CookiesManager'
 
 const ItemPage = ({updateCategory}) => {
     const {id} = useParams();
@@ -12,13 +14,92 @@ const ItemPage = ({updateCategory}) => {
     const [isLoading, setIsLoading] = useState(true);
     const navigate = useNavigate();
 
+    const [added, setAdded] = useState(false)
+
     useEffect(() => {
         getItemById(id)
             .then((data) => setItem(data))
             .catch((error) => console.error(error))
-            .finally(() => setTimeout(() => setIsLoading(false), 10));
+            .finally(() => setTimeout(() => setIsLoading(false), 100));
     }, [id]);
 
+
+    const handleCartUpdate = () => {
+        if (!localStorage.getItem('userData')) {
+            toast.error('You need to Sign in!', {
+                position: "bottom-right",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "dark",
+            });
+            return;
+        }
+
+        const cart = getCookie('cart');
+        const itemIdToCheck = item.id;
+
+        if (cart) {
+
+            cart.orderItems.push({
+                item: { id: itemIdToCheck },
+                amount: 1,
+            });
+
+            setCookie('cart', JSON.stringify(cart));
+
+            toast.success('Product added to the cart!', {
+                position: 'bottom-right',
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: 'dark',
+            });
+
+            setAdded(true);
+
+        } else {
+            const newCart = {
+                orderItems: [
+                    {
+                        item: { id: itemIdToCheck },
+                        amount: 1,
+                    },
+                ],
+            };
+
+            setCookie('cart', JSON.stringify(newCart))
+
+            toast.success('Product added to the cart!', {
+                position: 'bottom-right',
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: 'dark',
+            });
+
+            setAdded(true);
+        }
+    }
+
+    const isItemInCart = () => {
+        const cart = getCookie('cart');
+        if (!cart) {
+            return false;
+        }
+
+        const itemInCart = cart.orderItems.find((orderItem) => orderItem.item.id === item.id);
+        return !!itemInCart;
+    }
 
     return (
 
@@ -36,7 +117,14 @@ const ItemPage = ({updateCategory}) => {
                                 <Image className="details-image rounded-5" src = {`data:image/jpg;base64,${item.imageData}`}/>
                                 <div className="d-flex justify-content-between my-3">
                                     <h1 className="text-white mx-4">{item.price}$</h1>
-                                    <Button variant="outline-secondary" className="btn btn-outline-success button rounded-5 fw-bolder w-25 mx-4"><Cart size={35}/></Button>
+                                    <Button
+                                        variant="outline-secondary"
+                                        className={isItemInCart()  || added ? `btn btn-outline-success button rounded-5 fw-bolder w-25 mx-4 disabled` : `btn btn-outline-success button rounded-5 fw-bolder w-25 mx-4`}
+                                        onClick={handleCartUpdate}>
+                                        {isItemInCart() || added ? <Check size={35}/> : <Cart size={35}/>}
+                                    </Button>
+
+
                                 </div>
                             </div>
                         </div>

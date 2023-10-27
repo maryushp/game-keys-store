@@ -28,6 +28,7 @@ class FetchInterceptors {
             response: (response) => {
                 if (response.status === 401) {
                     removeCookie('token');
+                    removeCookie('cart')
                     localStorage.removeItem('userData');
                     window.location.reload()
                 }
