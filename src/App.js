@@ -6,6 +6,7 @@ import ItemPage from "./pages/ItemPage";
 import CartPage from "./pages/CartPage";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Footer from "./components/Footer";
 
 function App() {
 
@@ -37,6 +38,7 @@ function App() {
               <Route element={<ItemPage updateCategory={updateCategory}/>} path="/game/:id"/>
               <Route element={<CartPage/>} path="/cart"/>
           </Routes>
+          <Footer/>
       </>
   );
 }
