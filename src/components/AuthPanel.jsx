@@ -18,8 +18,6 @@ const AuthPanel = () => {
     const inputRefEmailSignUp = useRef(null)
     const inputRefPassSignUp = useRef(null)
 
-    const [userId, setUserId] = useState(-1)
-
     const [signInEmail, setSignInEmail] = useState("")
     const [signInPassword, setSignInPassword] = useState("")
 
@@ -59,7 +57,6 @@ const AuthPanel = () => {
     }
 
     const handleData = (data) => {
-        setUserId(data.id)
         setCookie("token", data.token)
     }
 
