@@ -70,7 +70,7 @@ const Header = ({ updateCategory, selectedCategory, setInputResult}) => {
 
             <div className="d-none d-lg-block">
 
-                {location.pathname.includes("/game") ?
+                {location.pathname.includes("/game") || location.pathname.includes("/cart") ?
                     (
                         <></>
                     )
@@ -84,7 +84,7 @@ const Header = ({ updateCategory, selectedCategory, setInputResult}) => {
                 }
 
             </div>
-                {location.pathname.includes("/game") ?
+                {location.pathname.includes("/game") || location.pathname.includes("/cart") ?
                     (<></>) :
                     (
                         <div className={`w-100 d-lg-flex d-none flex-wrap position-absolute justify-content-center gap-3 align-items-center p-5 dropdown ${isOpen ? 'dropdown-animation show' : 'dropdown-animation'}`}>
@@ -116,10 +116,13 @@ const Header = ({ updateCategory, selectedCategory, setInputResult}) => {
             {location.pathname.includes("/game") ?
                 (<h1 className="text-white">Details</h1>) :
                 (
-                    <div className="col-11 col-lg-8">
-                        <Input className="input rounded-5 border-0" innerRef={inputRef} onChange={(e) => handleInputChange(e)}>
-                        </Input>
-                    </div>
+                    location.pathname.includes("/cart") ?
+                        (<h1 className="text-white">Cart</h1>)
+                        :
+                        (<div className="col-11 col-lg-8">
+                            <Input className="input rounded-5 border-0" innerRef={inputRef} onChange={(e) => handleInputChange(e)}>
+                            </Input>
+                        </div>)
                 )
             }
 
@@ -133,7 +136,21 @@ const Header = ({ updateCategory, selectedCategory, setInputResult}) => {
             >
                 {localStorage.getItem('userData') ? "ACCOUNT" : "SIGN IN"}
             </Button>
-            <Cart color="white" className="me-5 d-none d-md-block" size="28"/>
+
+
+            {localStorage.getItem('userData') ?
+                (<Link to="/cart">
+                    <Cart
+                        color="white"
+                        className="me-5 d-none d-md-block cart"
+                        size="28"
+                    />
+                </Link>)
+                :
+                (<div></div>)
+            }
+
+
         </div>
 
             {isSignInPanelOpen && <AuthPanel/>}

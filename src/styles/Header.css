@@ -45,3 +45,7 @@ header {
     visibility: visible;
     transform: translateY(0);
 }
+
+.cart {
+    cursor: pointer;
+}
