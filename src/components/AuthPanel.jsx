@@ -129,7 +129,7 @@ const AuthPanel = () => {
                         }
                     });
             })
-            .catch(() => {setSignUpError(true); setErrorText("Incorrect Email")})
+            .catch(() => {setSignUpError(true); setErrorText("Try another credentials!")})
             .finally();
     }
 

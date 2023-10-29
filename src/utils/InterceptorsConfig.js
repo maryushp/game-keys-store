@@ -25,12 +25,22 @@ class FetchInterceptors {
 
     setupResponseInterceptor() {
         fetchIntercept.register({
-            response: (response) => {
+            response: async (response) => {
                 if (response.status === 401) {
-                    removeCookie('token');
-                    removeCookie('cart')
-                    localStorage.removeItem('userData');
-                    window.location.reload()
+                    try {
+                        const data = await response.json();
+                        if (data.detail !== "Bad credentials") {
+                            removeCookie('token');
+                            removeCookie('cart');
+                            localStorage.removeItem('userData');
+                            window.location.reload();
+                        }
+                    } catch (error) {
+                        removeCookie('token');
+                        removeCookie('cart')
+                        localStorage.removeItem('userData');
+                        window.location.reload();
+                    }
                 }
                 return response;
             },
