@@ -95,8 +95,10 @@ const CartPage = () => {
                     <div className="d-flex flex-column mt-4">
                         {itemsWithQuantity.map((itemInCart) => (
                             <div className="d-flex flex-wrap gap-5 justify-content-around py-3 border-bottom">
-                                <Image className="item-small-image rounded-4"
-                                       src={`data:image/jpg;base64,${itemInCart.item.imageData}`}/>
+                                <Link to={`/game/${itemInCart.item.id}`}>
+                                    <Image className="item-small-image rounded-4"
+                                           src={`data:image/jpg;base64,${itemInCart.item.imageData}`}/>
+                                </Link>
                                 <div className="d-flex flex-column col-4 justify-content-center">
                                     <h2 className="text-center text-white">{itemInCart.item.name}</h2>
                                     <h2 className="text-center text-white">{itemInCart.item.price}$</h2>
