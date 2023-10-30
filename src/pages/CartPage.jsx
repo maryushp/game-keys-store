@@ -2,10 +2,12 @@ import React, {useEffect, useState} from "react";
 import {Link} from "react-router-dom";
 import {Button, Image} from "react-bootstrap";
 import {getItemById} from "../utils/ItemsAPI";
-import { DashCircle, PlusCircle } from "react-bootstrap-icons";
+import {DashCircle, PlusCircle} from "react-bootstrap-icons";
 import "../styles/CartPage.css";
-import {getCookie, setCookie} from "../utils/CookiesManager";
+import {getCookie, removeCookie, setCookie} from "../utils/CookiesManager";
 import {ClipLoader} from "react-spinners";
+import {createOrder} from "../utils/OrderAPI";
+import {toast} from "react-toastify";
 
 const CartPage = () => {
     const orderItems = getCookie('cart');
@@ -39,7 +41,7 @@ const CartPage = () => {
     const decreaseQuantity = (id) => {
         const updatedItemsWithQuantity = itemsWithQuantity.map((itemInCart) => {
             if (itemInCart.item.id === id) {
-                const updatedItem = { ...itemInCart };
+                const updatedItem = {...itemInCart};
                 if (updatedItem.amount > 1) {
                     updatedItem.amount--;
                 } else {
@@ -59,7 +61,7 @@ const CartPage = () => {
     const increaseQuantity = (id) => {
         const updatedItemsWithQuantity = itemsWithQuantity.map((itemInCart) => {
             if (itemInCart.item.id === id) {
-                const updatedItem = { ...itemInCart };
+                const updatedItem = {...itemInCart};
                 updatedItem.amount++;
                 return updatedItem;
             }
@@ -77,12 +79,32 @@ const CartPage = () => {
 
     const updateCart = (updatedItemsWithQuantity) => {
         const updatedOrderItems = updatedItemsWithQuantity.map((itemInCart) => ({
-            item: { id: itemInCart.item.id },
+            item: {id: itemInCart.item.id},
             amount: itemInCart.amount,
         }));
-        const updatedCart = { orderItems: updatedOrderItems };
+        const updatedCart = {orderItems: updatedOrderItems};
         setCookie('cart', JSON.stringify(updatedCart));
     };
+
+    const placeOrder = () => {
+        createOrder(getCookie('cart'))
+            .then(
+                () => {
+                    toast.success('Order has been succesfully created', {
+                        position: 'bottom-right',
+                        autoClose: 3000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        theme: 'dark'
+                    });
+                    removeCookie('cart');
+                    setItemsWithQuantity([]);
+                })
+            .catch((error) => console.log(error))
+    }
 
     return (
         <div className="d-flex flex-column cart-page">
@@ -104,10 +126,13 @@ const CartPage = () => {
                                     <h2 className="text-center text-white">{itemInCart.item.price}$</h2>
                                 </div>
                                 <div className="d-flex flex-wrap align-content-center justify-content-center gap-3">
-                                    <PlusCircle className="rounded-5 text-success icon-buttons" size={40} onClick={() => increaseQuantity(itemInCart.item.id)}>+</PlusCircle>
+                                    <PlusCircle className="rounded-5 text-success icon-buttons" size={40}
+                                                onClick={() => increaseQuantity(itemInCart.item.id)}>+</PlusCircle>
                                     <h2 className="text-center text-white">{itemInCart.amount}</h2>
-                                    <DashCircle className="rounded-5 text-danger icon-buttons" size={40} onClick={() => decreaseQuantity(itemInCart.item.id)}>-</DashCircle>
-                                    <Button variant={"danger"} className="rounded-5 mb-1 fw-bolder" onClick={() => deleteItemFromCart(itemInCart.item.id)}>DELETE</Button>
+                                    <DashCircle className="rounded-5 text-danger icon-buttons" size={40}
+                                                onClick={() => decreaseQuantity(itemInCart.item.id)}>-</DashCircle>
+                                    <Button variant={"danger"} className="rounded-5 mb-1 fw-bolder"
+                                            onClick={() => deleteItemFromCart(itemInCart.item.id)}>DELETE</Button>
                                 </div>
                                 <div className="d-flex flex-column justify-content-center">
                                     <h2 className="text-center text-white">Total price</h2>
@@ -118,7 +143,8 @@ const CartPage = () => {
                     </div>
                     <div className="d-flex flex-column align-items-center gap-5 my-5">
                         <h2 className="text-center text-white">Order cost: ${totalOrderCost.toFixed(2)}</h2>
-                        <Button variant="success" className="rounded-5 order-button text-center fw-bolder">PLACE
+                        <Button variant="success" className="rounded-5 order-button text-center fw-bolder"
+                                onClick={() => placeOrder()}>PLACE
                             ORDER</Button>
                     </div>
 

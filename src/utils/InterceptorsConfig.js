@@ -15,8 +15,8 @@ class FetchInterceptors {
                     if (!config) {
                         config = {};
                     }
-                    config.headers = config.headers || new Headers();
-                    config.headers.set('Authorization', `Bearer ${token}`);
+                    config.headers = config.headers || {};
+                    config.headers['Authorization'] = `Bearer ${token}`;
                 }
                 return [url, config];
             },
