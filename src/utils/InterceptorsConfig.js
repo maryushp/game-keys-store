@@ -17,7 +17,11 @@ class FetchInterceptors {
                     }
                     config.headers = config.headers || {};
                     config.headers['Authorization'] = `Bearer ${token}`;
+                } else if (localStorage.getItem('userData')) {
+                    localStorage.removeItem('userData');
+                    window.location.reload();
                 }
+
                 return [url, config];
             },
         });
