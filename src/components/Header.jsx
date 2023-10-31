@@ -70,7 +70,7 @@ const Header = ({ updateCategory, selectedCategory, setInputResult}) => {
 
             <div className="d-none d-lg-block">
 
-                {location.pathname.includes("/game") || location.pathname.includes("/cart") ?
+                {location.pathname.includes("/game") || location.pathname.includes("/cart") || location.pathname.includes("/orders") ?
                     (
                         <></>
                     )
@@ -84,7 +84,7 @@ const Header = ({ updateCategory, selectedCategory, setInputResult}) => {
                 }
 
             </div>
-                {location.pathname.includes("/game") || location.pathname.includes("/cart") ?
+                {location.pathname.includes("/game") || location.pathname.includes("/cart") || location.pathname.includes("/orders") ?
                     (<></>) :
                     (
                         <div className={`w-100 d-lg-flex d-none flex-wrap position-absolute justify-content-center gap-3 align-items-center p-5 dropdown ${isOpen ? 'dropdown-animation show' : 'dropdown-animation'}`}>
@@ -119,10 +119,15 @@ const Header = ({ updateCategory, selectedCategory, setInputResult}) => {
                     location.pathname.includes("/cart") ?
                         (<h1 className="text-white">Cart</h1>)
                         :
-                        (<div className="col-11 col-lg-8">
-                            <Input className="input rounded-5 border-0" innerRef={inputRef} onChange={(e) => handleInputChange(e)}>
-                            </Input>
-                        </div>)
+                        (location.pathname.includes("/orders") ?
+                                <h1 className="text-white"></h1>
+                        :
+                                (<div className="col-11 col-lg-8">
+                                    <Input className="input rounded-5 border-0" innerRef={inputRef} onChange={(e) => handleInputChange(e)}>
+                                    </Input>
+                                </div>)
+                        )
+
                 )
             }
 

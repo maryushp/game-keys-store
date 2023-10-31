@@ -5,6 +5,7 @@ import {Input} from "reactstrap";
 import {authenticate, register} from "../utils/AuthApi";
 import {getUser} from "../utils/UserApi";
 import {setCookie, removeCookie} from '../utils/CookiesManager'
+import {Link} from "react-router-dom";
 
 const AuthPanel = () => {
     const [signInIsClicked, setSignInClicked] = useState(true)
@@ -144,7 +145,9 @@ const AuthPanel = () => {
                         </div>
                         <h5 className="text-white text-center">{JSON.parse(localStorage.getItem('userData')).email}</h5>
                         <div className="d-flex flex-wrap gap-5 my-5">
-                            <Button variant="info" className="rounded-5 fw-bolder">My orders</Button>
+                            <Link to={"/orders"}>
+                                <Button variant="info" className="rounded-5 fw-bolder">My orders</Button>
+                            </Link>
                             <Button variant="danger" className="rounded-5 fw-bolder" onClick={handleSignOut}>Sign
                                 Out</Button>
                         </div>

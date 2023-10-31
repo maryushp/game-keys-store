@@ -16,3 +16,16 @@ export const createOrder = (cartData) => {
             throw error;
         });
 };
+
+export const getUserOrders = async (id, page, size) => {
+    try {
+        const response = await fetch(`http://localhost:8080/user/${id}/orders?size=${size}&page=${page-1}`);
+        if (!response.ok) {
+            throw new Error('Failed to fetch orders');
+        }
+        return await response.json();
+    } catch (error) {
+        console.error(error);
+        throw error;
+    }
+}
