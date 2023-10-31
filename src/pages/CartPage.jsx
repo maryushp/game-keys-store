@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import {Button, Image} from "react-bootstrap";
 import {getItemById} from "../utils/ItemsAPI";
 import {DashCircle, PlusCircle} from "react-bootstrap-icons";
@@ -13,6 +13,7 @@ const CartPage = () => {
     const orderItems = getCookie('cart');
     const [itemsWithQuantity, setItemsWithQuantity] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
+    const navigate = useNavigate();
 
     const totalOrderCost = itemsWithQuantity.reduce((total, itemInCart) => {
         const itemPrice = itemInCart.item.price;
@@ -21,6 +22,10 @@ const CartPage = () => {
     }, 0);
 
     useEffect(() => {
+        if (!localStorage.getItem('userData')) {
+            navigate("/");
+            return;
+        }
         const fetchItems = async () => {
             if (orderItems) {
                 setIsLoading(true);
