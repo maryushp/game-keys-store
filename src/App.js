@@ -8,6 +8,7 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Footer from "./components/Footer";
 import UserOrdersPage from "./pages/UserOrdersPage";
+import CreateItemPage from "./pages/CreateItemPage";
 
 function App() {
 
@@ -38,7 +39,8 @@ function App() {
               <Route element={<HomePage selectedCategory={selectedCategory} inputResult={inputResult}/>} path="/"/>
               <Route element={<ItemPage updateCategory={updateCategory}/>} path="/game/:id"/>
               <Route element={<CartPage/>} path="/cart"/>
-              <Route element={<UserOrdersPage/>} path={"orders"}/>
+              <Route element={<UserOrdersPage/>} path={"/orders"}/>
+              <Route element={<CreateItemPage/>} path={"/new-item"}/>
           </Routes>
           <Footer/>
       </>

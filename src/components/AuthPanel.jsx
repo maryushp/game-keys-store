@@ -144,13 +144,25 @@ const AuthPanel = () => {
                             <h4 className="text-white text-center">{JSON.parse(localStorage.getItem('userData')).surname}</h4>
                         </div>
                         <h5 className="text-white text-center">{JSON.parse(localStorage.getItem('userData')).email}</h5>
-                        <div className="d-flex flex-wrap gap-5 my-5">
-                            <Link to={"/orders"}>
-                                <Button variant="info" className="rounded-5 fw-bolder">My orders</Button>
-                            </Link>
-                            <Button variant="danger" className="rounded-5 fw-bolder" onClick={handleSignOut}>Sign
-                                Out</Button>
-                        </div>
+
+                        {JSON.parse(localStorage.getItem('userData')).role === "ADMIN" ?
+                            (<div className="d-flex flex-column gap-5 align-items-center">
+                                <Link to={"/new-item"} className="w-100">
+                                    <Button variant="info" className="fw-bolder w-100 rounded-5 mt-5">New Product</Button>
+                                </Link>
+                                <Button variant="info" className="fw-bolder w-100 rounded-5">Check Orders</Button>
+                                <Button variant="info" className="fw-bolder rounded-5 mb-5">Change Categories</Button>
+                            </div>)
+                            :
+                            (<div className="d-flex flex-wrap gap-5 my-5">
+                                <Link to={"/orders"}>
+                                    <Button variant="info" className="rounded-5 fw-bolder">My orders</Button>
+                                </Link>
+                            </div>)
+                        }
+                        <Button variant="danger" className="rounded-5 fw-bolder" onClick={handleSignOut}>Sign
+                            Out</Button>
+
                     </>
                 )
                 :

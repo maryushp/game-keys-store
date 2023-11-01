@@ -1,0 +1,28 @@
+.admin-page {
+    margin: 8rem 10% 0 10%;
+    user-select: none;
+    min-height: 80vh;
+    width: 80%;
+}
+
+.image-preview-default {
+    height: 40vh;
+    width: 18rem;
+    background-color: white;
+}
+
+.image-preview {
+    height: 30rem;
+    width: 20rem;
+    object-fit: cover;
+}
+
+.input-text {
+    background-color: rgba(255, 252, 252, 0.34);
+    font-size: 1.25rem;
+}
+
+.input-text:not(:focus ){
+    color: white;
+    outline: none;
+}
