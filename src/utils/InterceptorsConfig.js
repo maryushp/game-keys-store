@@ -30,7 +30,7 @@ class FetchInterceptors {
     setupResponseInterceptor() {
         fetchIntercept.register({
             response: async (response) => {
-                if (response.status === 401) {
+                if (response.status === 401 || response.status === 403) {
                     try {
                         const data = await response.json();
                         if (data.detail !== "Bad credentials") {
