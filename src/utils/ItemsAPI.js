@@ -36,3 +36,21 @@ export const searchItemsByName = async (input, page, size) => {
         throw error;
     }
 }
+
+export const postItem = (formData) => {
+    const url = `http://localhost:8080/item`;
+
+    return fetch(url, {
+        method: 'POST',
+        body: formData,
+    })
+        .then((response) => {
+            if (!response.ok) {
+                throw new Error('Failed to create the item');
+            }
+            return response.json();
+        })
+        .catch((error) => {
+            throw new Error(error.message);
+        });
+};
