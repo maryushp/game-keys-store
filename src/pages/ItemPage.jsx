@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, {useEffect, useState} from "react";
 import {useParams, useNavigate} from "react-router-dom";
 import "../styles/ItemPage.css"
 import {getItemById} from "../utils/ItemsAPI";
 import {ClipLoader} from "react-spinners";
 import {Button, Image} from "react-bootstrap";
 import {Cart, Check} from "react-bootstrap-icons";
-import { toast } from 'react-toastify';
-import {setCookie, removeCookie, getCookie} from '../utils/CookiesManager'
+import {toast} from 'react-toastify';
+import {setCookie, getCookie} from '../utils/CookiesManager'
 
 const ItemPage = ({updateCategory}) => {
     const {id} = useParams();
@@ -45,7 +45,7 @@ const ItemPage = ({updateCategory}) => {
         if (cart) {
 
             cart.orderItems.push({
-                item: { id: itemIdToCheck },
+                item: {id: itemIdToCheck},
                 amount: 1,
             });
 
@@ -68,7 +68,7 @@ const ItemPage = ({updateCategory}) => {
             const newCart = {
                 orderItems: [
                     {
-                        item: { id: itemIdToCheck },
+                        item: {id: itemIdToCheck},
                         amount: 1,
                     },
                 ],
@@ -104,7 +104,7 @@ const ItemPage = ({updateCategory}) => {
     return (
 
         <div className="d-flex flex-column flex-lg-row flex-wrap item-page justify-content-around align-content-center">
-            { isLoading ?
+            {isLoading ?
                 (
                     <div className="d-flex flex-wrap justify-content-center m-5">
                         <ClipLoader color="#ffffff" size={60}/>
@@ -112,24 +112,38 @@ const ItemPage = ({updateCategory}) => {
                 ) :
                 (
                     <>
-                        <div className="purchase-container  col-6 col-md-5 col-lg-3 d-flex flex-column align-items-center align-self-center align-self-lg-auto ">
+                        <div
+                            className="purchase-container  col-6 col-md-5 col-lg-3 d-flex flex-column align-items-center align-self-center align-self-lg-auto ">
                             <div>
-                                <Image className="details-image rounded-5" src = {`data:image/jpg;base64,${item.imageData}`}/>
+                                <Image className="details-image rounded-5"
+                                       src={`data:image/jpg;base64,${item.imageData}`}/>
                                 <div className="d-flex justify-content-between my-3">
                                     <h1 className="text-white mx-4">{item.price}$</h1>
-                                    <Button
-                                        variant="outline-secondary"
-                                        className={isItemInCart()  || added ? `btn btn-outline-success button rounded-5 fw-bolder w-25 mx-4 disabled` : `btn btn-outline-success button rounded-5 fw-bolder w-25 mx-4`}
-                                        onClick={handleCartUpdate}>
-                                        {isItemInCart() || added ? <Check size={35}/> : <Cart size={35}/>}
-                                    </Button>
+                                    {localStorage.getItem('userData') ?
+                                        (JSON.parse(localStorage.getItem('userData')).role === "ADMIN" ? (<div></div>)
+                                            :
+                                            (<Button
+                                                variant="outline-secondary"
+                                                className={isItemInCart() || added ? `btn btn-outline-success button rounded-5 fw-bolder w-25 mx-4 disabled` : `btn btn-outline-success button rounded-5 fw-bolder w-25 mx-4`}
+                                                onClick={handleCartUpdate}>
+                                                {isItemInCart() || added ? <Check size={35}/> : <Cart size={35}/>}
+                                            </Button>))
+                                        :
+                                        (<Button
+                                            variant="outline-secondary"
+                                            className={isItemInCart() || added ? `btn btn-outline-success button rounded-5 fw-bolder w-25 mx-4 disabled` : `btn btn-outline-success button rounded-5 fw-bolder w-25 mx-4`}
+                                            onClick={handleCartUpdate}>
+                                            {isItemInCart() || added ? <Check size={35}/> : <Cart size={35}/>}
+                                        </Button>)
+                                    }
 
 
                                 </div>
                             </div>
                         </div>
 
-                        <div className="d-flex flex-column bio-container col-10  col-lg-7 align-items-center text-center ">
+                        <div
+                            className="d-flex flex-column bio-container col-10  col-lg-7 align-items-center text-center ">
                             <h1 className="text-white fw-bolder text-uppercase">{item.name}</h1>
                             <hr className="border-2 border my-3 w-100"/>
                             <h2 className="text-white m-3">{item.description}</h2>
