@@ -54,3 +54,23 @@ export const postItem = (formData) => {
             throw new Error(error.message);
         });
 };
+
+export const deleteItem = (itemId) => {
+    const url = `http://localhost:8080/item/${itemId}`;
+
+    fetch(url, {
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    })
+        .then((response) => {
+            if (!response.ok) {
+                throw new Error('Failed to delete the item');
+            }
+            console.log('Item deleted successfully');
+        })
+        .catch((error) => {
+            console.error(`Error while deleting the item: ${error.message}`);
+        });
+};

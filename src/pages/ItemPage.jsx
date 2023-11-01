@@ -1,9 +1,9 @@
 import React, {useEffect, useState} from "react";
 import {useParams, useNavigate} from "react-router-dom";
 import "../styles/ItemPage.css"
-import {getItemById} from "../utils/ItemsAPI";
+import {getItemById, deleteItem} from "../utils/ItemsAPI";
 import {ClipLoader} from "react-spinners";
-import {Button, Image} from "react-bootstrap";
+import {Button, Image, Modal} from "react-bootstrap";
 import {Cart, Check} from "react-bootstrap-icons";
 import {toast} from 'react-toastify';
 import {setCookie, getCookie} from '../utils/CookiesManager'
@@ -15,6 +15,7 @@ const ItemPage = ({updateCategory}) => {
     const navigate = useNavigate();
 
     const [added, setAdded] = useState(false)
+    const [show, setShow] = useState(false);
 
     useEffect(() => {
         getItemById(id)
@@ -90,6 +91,15 @@ const ItemPage = ({updateCategory}) => {
             setAdded(true);
         }
     }
+    const handleShow = () => setShow(true);
+
+    const handleClose = () => setShow(false);
+
+    const handleDelete = () => {
+        setIsLoading(true);
+        deleteItem(item.id);
+        navigate("/");
+    }
 
     const isItemInCart = () => {
         const cart = getCookie('cart');
@@ -120,7 +130,14 @@ const ItemPage = ({updateCategory}) => {
                                 <div className="d-flex justify-content-between my-3">
                                     <h1 className="text-white mx-4">{item.price}$</h1>
                                     {localStorage.getItem('userData') ?
-                                        (JSON.parse(localStorage.getItem('userData')).role === "ADMIN" ? (<div></div>)
+                                        (JSON.parse(localStorage.getItem('userData')).role === "ADMIN" ?
+                                            (<Button
+                                                variant="danger"
+                                                className="rounded-5 fw-bolder mx-4"
+                                                onClick={handleShow}
+                                            >
+                                                DELETE
+                                            </Button>)
                                             :
                                             (<Button
                                                 variant="outline-secondary"
@@ -136,12 +153,24 @@ const ItemPage = ({updateCategory}) => {
                                             {isItemInCart() || added ? <Check size={35}/> : <Cart size={35}/>}
                                         </Button>)
                                     }
-
-
                                 </div>
                             </div>
                         </div>
-
+                        <Modal show={show} onHide={handleClose} backdrop="static">
+                            <Modal.Header closeButton>
+                                <Modal.Title>Delete confirmation</Modal.Title>
+                            </Modal.Header>
+                            <Modal.Body>Are you sure you want delete this product?</Modal.Body>
+                            <Modal.Footer>
+                                <Button variant="danger" onClick={handleClose}>
+                                    Decline
+                                </Button>
+                                <Button variant="success"
+                                        onClick={handleDelete}>
+                                    Confirm
+                                </Button>
+                            </Modal.Footer>
+                        </Modal>
                         <div
                             className="d-flex flex-column bio-container col-10  col-lg-7 align-items-center text-center ">
                             <h1 className="text-white fw-bolder text-uppercase">{item.name}</h1>
