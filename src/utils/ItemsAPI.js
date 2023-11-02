@@ -74,3 +74,21 @@ export const deleteItem = (itemId) => {
             console.error(`Error while deleting the item: ${error.message}`);
         });
 };
+
+export const updateItem = (formData, id) => {
+    const url = `http://localhost:8080/item/${id}`;
+
+    return fetch(url, {
+        method: 'PATCH',
+        body: formData,
+    })
+        .then((response) => {
+            if (!response.ok) {
+                throw new Error('Failed to update the item');
+            }
+            return response.json();
+        })
+        .catch((error) => {
+            throw new Error(error.message);
+        });
+};

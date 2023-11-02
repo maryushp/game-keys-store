@@ -9,6 +9,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import Footer from "./components/Footer";
 import UserOrdersPage from "./pages/UserOrdersPage";
 import CreateItemPage from "./pages/CreateItemPage";
+import UpdateItemPage from "./pages/UpdateItemPage";
 
 function App() {
 
@@ -41,6 +42,7 @@ function App() {
               <Route element={<CartPage/>} path="/cart"/>
               <Route element={<UserOrdersPage/>} path={"/orders"}/>
               <Route element={<CreateItemPage/>} path={"/new-item"}/>
+              <Route element={<UpdateItemPage/>} path={"/update-item/:id"}/>
           </Routes>
           <Footer/>
       </>

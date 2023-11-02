@@ -101,6 +101,10 @@ const ItemPage = ({updateCategory}) => {
         navigate("/");
     }
 
+    const handleUpdate = () => {
+        navigate(`/update-item/${id}`);
+    }
+
     const isItemInCart = () => {
         const cart = getCookie('cart');
         if (!cart) {
@@ -131,13 +135,25 @@ const ItemPage = ({updateCategory}) => {
                                     <h1 className="text-white mx-4">{item.price}$</h1>
                                     {localStorage.getItem('userData') ?
                                         (JSON.parse(localStorage.getItem('userData')).role === "ADMIN" ?
-                                            (<Button
-                                                variant="danger"
-                                                className="rounded-5 fw-bolder mx-4"
-                                                onClick={handleShow}
-                                            >
-                                                DELETE
-                                            </Button>)
+                                            (
+                                                <>
+                                                    <Button
+                                                        variant="danger"
+                                                        className="rounded-5 fw-bolder mx-4"
+                                                        onClick={handleShow}
+                                                    >
+                                                        DELETE
+                                                    </Button>
+
+                                                    <Button
+                                                        variant="warning"
+                                                        className="rounded-5 fw-bolder"
+                                                        onClick={handleUpdate}
+                                                    >
+                                                        UPDATE
+                                                    </Button>
+                                                </>
+                                            )
                                             :
                                             (<Button
                                                 variant="outline-secondary"
