@@ -9,7 +9,7 @@ import {getAllCategories} from "../utils/CategoriesAPI";
 import _ from "lodash";
 import AuthPanel from "./AuthPanel";
 
-const Header = ({ updateCategory, selectedCategory, setInputResult}) => {
+const Header = ({updateCategory, selectedCategory, setInputResult}) => {
     const [isOpen, setIsOpen] = useState(false);
     const [categories, setCategories] = useState([]);
     const location = useLocation();
@@ -56,38 +56,41 @@ const Header = ({ updateCategory, selectedCategory, setInputResult}) => {
         setInputResult("");
     }
 
-    return(
+    return (
         <header className="d-flex flex-wrap shadow-lg fixed-top">
 
-        <div className="col-2 d-flex justify-content-center">
-            <Link to="/">
-                <Image src="../img/logo.png" className="sc-image d-none d-lg-block"></Image>
-            </Link>
-            <List color="white" size="36" className="d-block d-lg-none "/>
-        </div>
-
-        <div className="d-flex flex-wrap col-9 col-md-8  col-lg-7 p-3 align-items-center justify-content-center gap-5">
-
-            <div className="d-none d-lg-block">
-
-                {location.pathname.includes("/game") || location.pathname.includes("/cart") || location.pathname.includes("/orders") || location.pathname.includes("/new-item") || location.pathname.includes("/all-orders") || location.pathname.includes("/update-categories") ?
-                    (
-                        <></>
-                    )
-                    :
-                    (
-                        <Button variant="outline-secondary" className="button btn btn-outline-light rounded-5 fw-bolder border-2"
-                                onClick={() => handleButtonCategories()}>
-                            CATEGORIES
-                        </Button>
-                    )
-                }
-
+            <div className="col-2 d-flex justify-content-center">
+                <Link to="/">
+                    <Image src="../img/logo.png" className="sc-image d-none d-lg-block"></Image>
+                </Link>
+                <List color="white" size="36" className="d-block d-lg-none "/>
             </div>
+
+            <div
+                className="d-flex flex-wrap col-9 col-md-8  col-lg-7 p-3 align-items-center justify-content-center gap-5">
+
+                <div className="d-none d-lg-block">
+
+                    {location.pathname.includes("/game") || location.pathname.includes("/cart") || location.pathname.includes("/orders") || location.pathname.includes("/new-item") || location.pathname.includes("/all-orders") || location.pathname.includes("/update-categories") ?
+                        (
+                            <></>
+                        )
+                        :
+                        (
+                            <Button variant="outline-secondary"
+                                    className="button btn btn-outline-light rounded-5 fw-bolder border-2"
+                                    onClick={() => handleButtonCategories()}>
+                                CATEGORIES
+                            </Button>
+                        )
+                    }
+
+                </div>
                 {location.pathname.includes("/game") || location.pathname.includes("/cart") || location.pathname.includes("/orders") || location.pathname.includes("/new-item") || location.pathname.includes("/all-orders") || location.pathname.includes("/update-categories") ?
                     (<></>) :
                     (
-                        <div className={`w-100 d-lg-flex d-none flex-wrap position-absolute justify-content-center gap-3 align-items-center p-5 dropdown ${isOpen ? 'dropdown-animation show' : 'dropdown-animation'}`}>
+                        <div
+                            className={`w-100 d-lg-flex d-none flex-wrap position-absolute justify-content-center gap-3 align-items-center p-5 dropdown ${isOpen ? 'dropdown-animation show' : 'dropdown-animation'}`}>
                             {categories.map((category) => (
                                 <Button
                                     key={category.id}
@@ -105,7 +108,10 @@ const Header = ({ updateCategory, selectedCategory, setInputResult}) => {
                             <Button
                                 variant="danger"
                                 className="btn rounded-5 fw-bolder button-category-nav"
-                                onClick={() => {clearInput(); updateCategory([]) }}
+                                onClick={() => {
+                                    clearInput();
+                                    updateCategory([])
+                                }}
                             >
                                 Clear All
                             </Button>
@@ -113,56 +119,57 @@ const Header = ({ updateCategory, selectedCategory, setInputResult}) => {
                     )
                 }
 
-            {location.pathname.includes("/game") ?
-                (<h1 className="text-white">Details</h1>) :
-                (
-                    location.pathname.includes("/cart") ?
-                        (<h1 className="text-white">Cart</h1>)
+                {location.pathname.includes("/game") ?
+                    (<h1 className="text-white">Details</h1>) :
+                    (
+                        location.pathname.includes("/cart") ?
+                            (<h1 className="text-white">Cart</h1>)
+                            :
+                            (location.pathname.includes("/orders") || location.pathname.includes("/all-orders") || location.pathname.includes("/update-categories") ?
+                                    <h1 className="text-white"></h1>
+                                    :
+                                    (location.pathname.includes("/new-item") ?
+                                            (<div></div>)
+                                            :
+                                            (<div className="col-11 col-lg-8">
+                                                <Input className="input rounded-5 border-0" innerRef={inputRef}
+                                                       onChange={(e) => handleInputChange(e)}>
+                                                </Input>
+                                            </div>)
+                                    )
+                            )
+                    )
+                }
+
+
+            </div>
+
+            <div className="d-none d-md-flex flex-wrap  col-2 col-lg-3 justify-content-end align-items-center gap-5">
+                <Button variant="outline-secondary"
+                        className="d-none d-lg-block button btn btn-outline-light rounded-5 fw-bolder border border-2"
+                        onClick={toggleSignInPanel}
+                >
+                    {localStorage.getItem('userData') ? "ACCOUNT" : "SIGN IN"}
+                </Button>
+
+
+                {localStorage.getItem('userData') ?
+                    JSON.parse(localStorage.getItem('userData')).role === "ADMIN" ?
+                        (<div></div>)
                         :
-                        (location.pathname.includes("/orders") || location.pathname.includes("/all-orders") || location.pathname.includes("/update-categories") ?
-                                <h1 className="text-white"></h1>
-                        :
-                                (location.pathname.includes("/new-item") ?
-                                        (<div></div>)
-                                        :
-                                        (<div className="col-11 col-lg-8">
-                                            <Input className="input rounded-5 border-0" innerRef={inputRef} onChange={(e) => handleInputChange(e)}>
-                                            </Input>
-                                        </div>)
-                                )
-                        )
-                )
-            }
-
-
-        </div>
-
-        <div className="d-none d-md-flex flex-wrap  col-2 col-lg-3 justify-content-end align-items-center gap-5">
-            <Button variant="outline-secondary"
-                    className="d-none d-lg-block button btn btn-outline-light rounded-5 fw-bolder border border-2"
-                    onClick={toggleSignInPanel}
-            >
-                {localStorage.getItem('userData') ? "ACCOUNT" : "SIGN IN"}
-            </Button>
-
-
-            {localStorage.getItem('userData') ?
-                JSON.parse(localStorage.getItem('userData')).role === "ADMIN" ?
-                    (<div></div>)
+                        (<Link to="/cart">
+                            <Cart
+                                color="white"
+                                className="me-5 d-none d-md-block cart"
+                                size="28"
+                            />
+                        </Link>)
                     :
-                    (<Link to="/cart">
-                        <Cart
-                            color="white"
-                            className="me-5 d-none d-md-block cart"
-                            size="28"
-                        />
-                    </Link>)
-                :
-                (<div></div>)
-            }
+                    (<div></div>)
+                }
 
 
-        </div>
+            </div>
 
             {isSignInPanelOpen && <AuthPanel/>}
 
