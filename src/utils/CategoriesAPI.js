@@ -24,3 +24,26 @@ export const getItemsByCategories = async (categories, page, size) => {
         throw error;
     }
 }
+
+export const updateCategory = (name, id) => {
+    const url = `http://localhost:8080/category/${id}`;
+
+    const requestBody = JSON.stringify({ name });
+
+    return fetch(url, {
+        method: 'PATCH',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: requestBody,
+    })
+        .then((response) => {
+            if (!response.ok) {
+                throw new Error('Failed to update the category');
+            }
+            return response.json();
+        })
+        .catch((error) => {
+            throw new Error(error.message);
+        });
+};

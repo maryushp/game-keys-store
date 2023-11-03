@@ -11,6 +11,7 @@ import UserOrdersPage from "./pages/UserOrdersPage";
 import CreateItemPage from "./pages/CreateItemPage";
 import UpdateItemPage from "./pages/UpdateItemPage";
 import OrdersPage from "./pages/OrdersPage";
+import UpdateCategoriesPage from "./pages/UpdateCategoriesPage";
 
 function App() {
 
@@ -45,6 +46,7 @@ function App() {
               <Route element={<CreateItemPage/>} path={"/new-item"}/>
               <Route element={<UpdateItemPage/>} path={"/update-item/:id"}/>
               <Route element={<OrdersPage/>} path={"/all-orders"}/>
+              <Route element={<UpdateCategoriesPage/>} path={"/update-categories"}/>
           </Routes>
           <Footer/>
       </>
