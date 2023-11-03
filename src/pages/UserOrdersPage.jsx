@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
-import "../styles/UserOrdersPage.css";
-import { ClipLoader } from "react-spinners";
+import "../styles/OrdersPage.css";
+import "../styles/DefaultPage.css"
 import { getUserOrders } from '../utils/OrderAPI';
 import {Button, Image} from "react-bootstrap";
 import {Link, useNavigate  } from "react-router-dom";
+import Spinner from "../components/Spinner";
 
 const UserOrdersPage = () => {
     const userData = JSON.parse(localStorage.getItem('userData'));
@@ -45,11 +46,9 @@ const UserOrdersPage = () => {
 
 
     return (
-        <div className="d-flex flex-column user-orders-page">
+        <div className="d-flex flex-column default-page">
             {isLoading ? (
-                <div className="d-flex flex-wrap justify-content-center cart-spinner">
-                    <ClipLoader color="#ffffff" size={60} />
-                </div>
+                <Spinner/>
             ) : orders.length > 0 ?
                 (<>
                     {orders.map((order) => (

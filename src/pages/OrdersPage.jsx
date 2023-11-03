@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from "react";
 import {useNavigate} from "react-router-dom";
 import "../styles/DefaultPage.css"
+import "../styles/OrdersPage.css"
 import {getAllOrders, getOrderById} from "../utils/OrderAPI";
 import {Button, Image} from "react-bootstrap";
 import {Input} from "reactstrap";
