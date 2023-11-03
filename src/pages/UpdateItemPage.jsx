@@ -112,7 +112,7 @@ const UpdateItemPage = () => {
                         <div className="d-flex flex-wrap justify-content-center">
 
                             <div className="d-flex flex-column col-lg-4 col-md-12 col-sm-12 align-items-center">
-                                <div className="d-flex flex-wrap justify-content-center">
+                                <div className="d-flex flex-column justify-content-center">
                                     <Image src={image ? `${image}` : `data:image/jpg;base64,${imageBlob}`} className="rounded-4 img"></Image>
                                     <Form.Group controlId="formFile" className="my-2">
                                         <Form.Control
