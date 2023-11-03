@@ -150,7 +150,9 @@ const AuthPanel = () => {
                                 <Link to={"/new-item"} className="w-100">
                                     <Button variant="info" className="fw-bolder w-100 rounded-5 mt-5">New Product</Button>
                                 </Link>
-                                <Button variant="info" className="fw-bolder w-100 rounded-5">Check Orders</Button>
+                                <Link to={"/all-orders"} className="w-100">
+                                    <Button variant="info" className="fw-bolder w-100 rounded-5">Check Orders</Button>
+                                </Link>
                                 <Button variant="info" className="fw-bolder rounded-5 mb-5">Change Categories</Button>
                             </div>)
                             :

@@ -10,6 +10,7 @@ import Footer from "./components/Footer";
 import UserOrdersPage from "./pages/UserOrdersPage";
 import CreateItemPage from "./pages/CreateItemPage";
 import UpdateItemPage from "./pages/UpdateItemPage";
+import OrdersPage from "./pages/OrdersPage";
 
 function App() {
 
@@ -43,6 +44,7 @@ function App() {
               <Route element={<UserOrdersPage/>} path={"/orders"}/>
               <Route element={<CreateItemPage/>} path={"/new-item"}/>
               <Route element={<UpdateItemPage/>} path={"/update-item/:id"}/>
+              <Route element={<OrdersPage/>} path={"/all-orders"}/>
           </Routes>
           <Footer/>
       </>

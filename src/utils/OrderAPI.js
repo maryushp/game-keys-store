@@ -29,3 +29,29 @@ export const getUserOrders = async (id, page, size) => {
         throw error;
     }
 }
+
+export const getAllOrders = async (page, size) => {
+    try {
+        const response = await fetch(`http://localhost:8080/order?size=${size}&page=${page-1}`);
+        if (!response.ok) {
+            throw new Error('Failed to fetch orders');
+        }
+        return await response.json();
+    } catch (error) {
+        console.error(error);
+        throw error;
+    }
+}
+
+export const getOrderById = async (id) => {
+    try {
+        const response = await fetch(`http://localhost:8080/order/${id}`);
+        if (!response.ok) {
+            throw new Error('Failed to fetch order');
+        }
+        return await response.json();
+    } catch (error) {
+        console.error(error);
+        throw error;
+    }
+}
