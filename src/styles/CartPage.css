@@ -1,16 +1,5 @@
-.cart-page {
-    margin: 8rem 10% 0 10%;
-    user-select: none;
-    min-height: 80vh;
-    width: 80%;
-}
-
 .empty-cart {
     margin-top: 26vh;
-}
-
-.cart-spinner {
-    margin-top: 34vh;
 }
 
 .item-small-image {

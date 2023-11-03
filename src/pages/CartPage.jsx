@@ -5,9 +5,10 @@ import {getItemById} from "../utils/ItemsAPI";
 import {DashCircle, PlusCircle} from "react-bootstrap-icons";
 import "../styles/CartPage.css";
 import {getCookie, removeCookie, setCookie} from "../utils/CookiesManager";
-import {ClipLoader} from "react-spinners";
+import "../styles/DefaultPage.css"
 import {createOrder} from "../utils/OrderAPI";
 import {toast} from "react-toastify";
+import Spinner from "../components/Spinner";
 
 const CartPage = () => {
     const orderItems = getCookie('cart');
@@ -112,11 +113,9 @@ const CartPage = () => {
     }
 
     return (
-        <div className="d-flex flex-column cart-page">
+        <div className="d-flex flex-column default-page">
             {isLoading ? (
-                <div className="d-flex flex-wrap justify-content-center cart-spinner">
-                    <ClipLoader color="#ffffff" size={60}/>
-                </div>
+                <Spinner/>
             ) : orderItems && itemsWithQuantity.length > 0 ? (
                 <div className=" d-flex flex-column">
                     <div className="d-flex flex-column mt-4">
