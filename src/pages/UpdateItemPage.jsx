@@ -3,14 +3,14 @@ import {useParams, useNavigate} from "react-router-dom";
 import {getItemById, updateItem} from "../utils/ItemsAPI";
 import "../styles/UpdateItemPage.css"
 import {Button, Form, Image, InputGroup} from "react-bootstrap"
-import {ClipLoader} from "react-spinners";
 import {Input} from "reactstrap";
 import {getAllCategories} from "../utils/CategoriesAPI";
 import {toast} from "react-toastify";
+import "../styles/DefaultPage.css"
+import Spinner from "../components/Spinner";
 
 const UpdateItemPage = () => {
     const {id} = useParams();
-    const [item, setItem] = useState(null);
     const navigate = useNavigate();
     const [isLoading, setIsLoading] = useState(true);
 
@@ -104,14 +104,8 @@ const UpdateItemPage = () => {
     }
 
     return (
-        <div className="d-flex flex-column update-item-page">
-            {isLoading ?
-                (
-                    <div className="d-flex flex-wrap justify-content-center m-5">
-                        <ClipLoader color="#ffffff" size={60}/>
-                    </div>
-                )
-                :
+        <div className="d-flex flex-column default-page">
+            {isLoading ? <Spinner/> :
                 (
                     <>
                         <h1 className="text-center text-white fw-bolder mt-4 mb-5">Update product</h1>
