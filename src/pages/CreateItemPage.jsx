@@ -6,6 +6,7 @@ import {Input} from "reactstrap";
 import {getAllCategories} from "../utils/CategoriesAPI";
 import {postItem} from "../utils/ItemsAPI";
 import {toast} from "react-toastify";
+import "../styles/DefaultPage.css"
 
 const CreateItemPage = () => {
     const navigate = useNavigate();
@@ -99,7 +100,7 @@ const CreateItemPage = () => {
 
 
     return (
-        <div className="d-flex flex-column admin-page">
+        <div className="d-flex flex-column default-page">
             <h1 className="text-center text-white fw-bolder mt-4 mb-5">Create new product</h1>
 
             <div className="d-flex flex-wrap justify-content-center">
