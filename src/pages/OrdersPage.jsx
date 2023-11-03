@@ -1,12 +1,12 @@
 import React, {useEffect, useState} from "react";
 import {useNavigate} from "react-router-dom";
-import {ClipLoader} from "react-spinners";
-import "../styles/OrdersPage.css"
+import "../styles/DefaultPage.css"
 import {getAllOrders, getOrderById} from "../utils/OrderAPI";
 import {Button, Image} from "react-bootstrap";
 import {Input} from "reactstrap";
 import {ArrowLeftCircle, ArrowRightCircle} from "react-bootstrap-icons";
 import {toast} from "react-toastify";
+import Spinner from "../components/Spinner";
 
 const OrdersPage = () => {
     const [orders, setOrders] = useState([]);
@@ -84,11 +84,9 @@ const OrdersPage = () => {
     }
 
     return (
-        <div className="d-flex flex-column orders-page">
+        <div className="d-flex flex-column default-page">
             {isLoading ? (
-                <div className="d-flex flex-wrap justify-content-center orders-spinner">
-                    <ClipLoader color="#ffffff" size={60} />
-                </div>
+                <Spinner/>
             ) :
                 <>
                     <div className="d-flex flex-wrap justify-content-center my-5 gap-3">
