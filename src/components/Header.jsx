@@ -70,7 +70,7 @@ const Header = ({ updateCategory, selectedCategory, setInputResult}) => {
 
             <div className="d-none d-lg-block">
 
-                {location.pathname.includes("/game") || location.pathname.includes("/cart") || location.pathname.includes("/orders") || location.pathname.includes("/new-item")?
+                {location.pathname.includes("/game") || location.pathname.includes("/cart") || location.pathname.includes("/orders") || location.pathname.includes("/new-item") || location.pathname.includes("/all-orders") ?
                     (
                         <></>
                     )
@@ -84,7 +84,7 @@ const Header = ({ updateCategory, selectedCategory, setInputResult}) => {
                 }
 
             </div>
-                {location.pathname.includes("/game") || location.pathname.includes("/cart") || location.pathname.includes("/orders") || location.pathname.includes("/new-item")?
+                {location.pathname.includes("/game") || location.pathname.includes("/cart") || location.pathname.includes("/orders") || location.pathname.includes("/new-item") || location.pathname.includes("/all-orders") ?
                     (<></>) :
                     (
                         <div className={`w-100 d-lg-flex d-none flex-wrap position-absolute justify-content-center gap-3 align-items-center p-5 dropdown ${isOpen ? 'dropdown-animation show' : 'dropdown-animation'}`}>
@@ -119,7 +119,7 @@ const Header = ({ updateCategory, selectedCategory, setInputResult}) => {
                     location.pathname.includes("/cart") ?
                         (<h1 className="text-white">Cart</h1>)
                         :
-                        (location.pathname.includes("/orders") ?
+                        (location.pathname.includes("/orders") || location.pathname.includes("/all-orders") ?
                                 <h1 className="text-white"></h1>
                         :
                                 (location.pathname.includes("/new-item") ?
