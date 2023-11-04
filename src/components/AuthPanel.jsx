@@ -134,7 +134,7 @@ const AuthPanel = () => {
     }
 
     return (
-        <div className={`d-lg-flex d-none flex-column position-absolute gap-3 p-5 auth-panel shadow-lg`}>
+        <div className={`d-flex flex-column position-absolute gap-3 p-5 auth-panel shadow-lg`}>
 
             {localStorage.getItem('userData') ?
                 (<>

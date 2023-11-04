@@ -8,6 +8,7 @@ import {Link, useLocation} from "react-router-dom";
 import {getAllCategories} from "../utils/CategoriesAPI";
 import _ from "lodash";
 import AuthPanel from "./AuthPanel";
+import Menu from "./Menu";
 
 const Header = ({updateCategory, selectedCategory, setInputResult}) => {
     const [isOpen, setIsOpen] = useState(false);
@@ -16,6 +17,8 @@ const Header = ({updateCategory, selectedCategory, setInputResult}) => {
     const inputRef = useRef(null);
 
     const [isSignInPanelOpen, setIsSignInPanelOpen] = useState(false);
+
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
 
 
     const toggleSignInPanel = () => {
@@ -51,6 +54,10 @@ const Header = ({updateCategory, selectedCategory, setInputResult}) => {
         }
     };
 
+    const toggleMenu = () => {
+        setIsMenuOpen(!isMenuOpen);
+    }
+
     const clearInput = () => {
         inputRef.current.value = "";
         setInputResult("");
@@ -63,7 +70,7 @@ const Header = ({updateCategory, selectedCategory, setInputResult}) => {
                 <Link to="/">
                     <Image src="../img/logo.png" className="sc-image d-none d-lg-block"></Image>
                 </Link>
-                <List color="white" size="36" className="d-block d-lg-none "/>
+                <List onClick={toggleMenu} color="white" size="36" className="d-block d-lg-none click-icon"/>
             </div>
 
             <div
@@ -160,7 +167,7 @@ const Header = ({updateCategory, selectedCategory, setInputResult}) => {
                         (<Link to="/cart">
                             <Cart
                                 color="white"
-                                className="me-5 d-none d-md-block cart"
+                                className="me-5 d-none d-md-block click-icon"
                                 size="28"
                             />
                         </Link>)
@@ -172,6 +179,7 @@ const Header = ({updateCategory, selectedCategory, setInputResult}) => {
             </div>
 
             {isSignInPanelOpen && <AuthPanel/>}
+            {isMenuOpen && <Menu/>}
 
         </header>
     )

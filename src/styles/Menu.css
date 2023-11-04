@@ -1,0 +1,7 @@
+.menu-panel {
+    top: 7rem;
+    background-color: rgba(32, 31, 32, 0.91);
+    min-height: 100vh;
+    align-items: center;
+    width: 25rem;
+}
