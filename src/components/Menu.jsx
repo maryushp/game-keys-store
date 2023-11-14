@@ -36,7 +36,6 @@ const Menu = () => {
                         Cart
                     </Button>
 
-                    <Button className="text-center text-white w-25 rounded-5">Categories</Button>
                 </div>
             }
 

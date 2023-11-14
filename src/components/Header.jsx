@@ -2,7 +2,7 @@ import React, {useEffect, useRef, useState} from "react";
 import "../styles/Header.css"
 
 import {Input} from "reactstrap";
-import {Cart, List} from "react-bootstrap-icons";
+import {Cart, List, Tag} from "react-bootstrap-icons";
 import {Image, Button} from "react-bootstrap";
 import {Link, useLocation} from "react-router-dom";
 import {getAllCategories} from "../utils/CategoriesAPI";
@@ -71,6 +71,7 @@ const Header = ({updateCategory, selectedCategory, setInputResult}) => {
                     <Image src="../img/logo.png" className="sc-image d-none d-lg-block"></Image>
                 </Link>
                 <List onClick={toggleMenu} color="white" size="36" className="d-block d-lg-none click-icon"/>
+                <Tag onClick={() => handleButtonCategories()} color="white" size="28" className="d-block d-lg-none mt-1  mx-md-3 click-icon"/>
             </div>
 
             <div
@@ -97,7 +98,7 @@ const Header = ({updateCategory, selectedCategory, setInputResult}) => {
                     (<></>) :
                     (
                         <div
-                            className={`w-100 d-lg-flex d-none flex-wrap position-absolute justify-content-center gap-3 align-items-center p-5 dropdown ${isOpen ? 'dropdown-animation show' : 'dropdown-animation'}`}>
+                            className={`w-100 d-flex flex-wrap position-absolute justify-content-center gap-3 align-items-center p-5 dropdown ${isOpen ? 'dropdown-animation show' : 'dropdown-animation'}`}>
                             {categories.map((category) => (
                                 <Button
                                     key={category.id}
