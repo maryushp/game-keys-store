@@ -58,7 +58,8 @@ const AuthPanel = () => {
     }
 
     const handleData = (data) => {
-        setCookie("token", data.token)
+        setCookie("token", data.accessToken)
+        setCookie("refreshToken", data.refreshToken)
     }
 
     const handleSignIn = () => {

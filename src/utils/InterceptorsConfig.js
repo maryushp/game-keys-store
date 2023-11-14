@@ -1,26 +1,35 @@
 import fetchIntercept from 'fetch-intercept';
-import {getCookie, removeCookie} from './CookiesManager'
+import {getCookie, removeCookie, setCookie} from './CookiesManager'
 
 class FetchInterceptors {
     constructor() {
         this.setupRequestInterceptor();
         this.setupResponseInterceptor();
+        this.originalRequestConfig = null;
     }
 
     setupRequestInterceptor() {
         fetchIntercept.register({
             request: (url, config) => {
                 const token = getCookie('token');
+
+                if (url.includes('/auth/refresh-token')) {
+                    return [url, config];
+                }
+
                 if (token) {
                     if (!config) {
                         config = {};
                     }
                     config.headers = config.headers || {};
                     config.headers['Authorization'] = `Bearer ${token}`;
+
                 } else if (localStorage.getItem('userData')) {
                     localStorage.removeItem('userData');
                     window.location.reload();
                 }
+
+                this.originalRequestConfig = config;
 
                 return [url, config];
             },
@@ -30,18 +39,33 @@ class FetchInterceptors {
     setupResponseInterceptor() {
         fetchIntercept.register({
             response: async (response) => {
+                if (response.url.includes('/auth/refresh-token')) {
+                    return response;
+                }
+
                 if (response.status === 401 || response.status === 403) {
                     try {
                         const data = await response.json();
                         if (data.detail !== "Bad credentials") {
-                            removeCookie('token');
-                            removeCookie('cart');
-                            localStorage.removeItem('userData');
-                            window.location.reload();
+                            if(data.title === "Token Expiration") {
+                                await this.handleTokenExpiration();
+
+
+                                const retryConfig = Object.assign({}, this.originalRequestConfig);
+
+                                return fetch(response.url, retryConfig);
+                            } else {
+                                removeCookie('token');
+                                removeCookie('refreshToken');
+                                removeCookie('cart');
+                                localStorage.removeItem('userData');
+                                window.location.reload();
+                            }
                         }
                     } catch (error) {
                         removeCookie('token');
-                        removeCookie('cart')
+                        removeCookie('refreshToken');
+                        removeCookie('cart');
                         localStorage.removeItem('userData');
                         window.location.reload();
                     }
@@ -50,6 +74,48 @@ class FetchInterceptors {
             },
         });
     }
+
+    async handleTokenExpiration() {
+        const refreshToken = getCookie('refreshToken');
+
+        if (refreshToken) {
+            try {
+                const newTokenResponse = await fetch('http://localhost:8080/auth/refresh-token', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${refreshToken}`,
+                    },
+                    body: JSON.stringify({}),
+                });
+
+                if (newTokenResponse.ok) {
+                    const newToken = newTokenResponse.headers.get('Authorization').split(' ')[1];
+
+                    setCookie('token', newToken);
+                    return newToken
+                } else {
+                    removeCookie('token');
+                    removeCookie('refreshToken');
+                    removeCookie('cart');
+                    localStorage.removeItem('userData');
+                    window.location.reload();
+                }
+            } catch (error) {
+                removeCookie('token');
+                removeCookie('refreshToken');
+                removeCookie('cart');
+                localStorage.removeItem('userData');
+                window.location.reload();
+            }
+        } else {
+            removeCookie('token');
+            removeCookie('cart');
+            localStorage.removeItem('userData');
+            window.location.reload();
+        }
+    }
 }
+
 
 export default FetchInterceptors;
