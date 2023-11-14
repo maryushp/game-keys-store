@@ -163,6 +163,9 @@ const AuthPanel = () => {
                                 <Link to={"/orders"}>
                                     <Button variant="info" className="rounded-5 fw-bolder">My orders</Button>
                                 </Link>
+                                <Link to={"/update-account"}>
+                                    <Button variant="warning" className="rounded-5 fw-bolder">Update info</Button>
+                                </Link>
                             </div>)
                         }
                         <Button variant="danger" className="rounded-5 fw-bolder" onClick={handleSignOut}>Sign
