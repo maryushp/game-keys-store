@@ -5,6 +5,7 @@ import { getUserOrders } from '../utils/OrderAPI';
 import {Button, Image} from "react-bootstrap";
 import {Link, useNavigate  } from "react-router-dom";
 import Spinner from "../components/Spinner";
+import {ArrowLeftCircle, ArrowRightCircle} from "react-bootstrap-icons";
 
 const UserOrdersPage = () => {
     const userData = JSON.parse(localStorage.getItem('userData'));
@@ -12,6 +13,12 @@ const UserOrdersPage = () => {
     const [orders, setOrders] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const navigate = useNavigate();
+
+    const [totalPages, setTotalPages] = useState();
+    const [currentPage, setCurrentPage] = useState(1);
+    const [isFirst, setIsFirst] = useState(true);
+    const [isLast, setIsLast] = useState();
+    const pageNumbers = Array.from({ length: totalPages }, (_, index) => index + 1);
 
     useEffect(() => {
         if (!userData) {
@@ -21,8 +28,11 @@ const UserOrdersPage = () => {
         const fetchData = async () => {
             try {
                 setIsLoading(true);
-                const userOrders = await getUserOrders(id).finally(() => setTimeout(null, 100));
+                const userOrders = await getUserOrders(id, currentPage).finally(() => setTimeout(null, 100));
                 setOrders(userOrders.content);
+                setTotalPages(userOrders.totalPages);
+                setIsFirst(userOrders.first);
+                setIsLast(userOrders.last);
                 setIsLoading(false);
             } catch (error) {
                 console.error(error);
@@ -31,7 +41,7 @@ const UserOrdersPage = () => {
         };
 
         fetchData();
-    }, [id]);
+    }, [id, currentPage]);
 
     const formattedDate = (dateString) => {
         const options = {
@@ -81,6 +91,30 @@ const UserOrdersPage = () => {
                             <hr></hr>
                         </div>
                     ))}
+                    <div className="mt-5 d-flex flex-wrap justify-content-center mb-5">
+                        <ArrowLeftCircle
+                            className={`m-2 ${isFirst ? "disabled text-secondary" : "text-white page-arrow"}`}
+                            size={36}
+                            onClick={isFirst ? null : () => setCurrentPage(currentPage - 1)}
+                        />
+
+                        {pageNumbers.map((pageNumber) => (
+                            <Button
+                                key={pageNumber}
+                                variant={pageNumber === currentPage ? "light" : "outline-light"}
+                                className={`m-2 rounded-5 ${currentPage === pageNumber ? "disabled" : ""}`}
+                                onClick={() => setCurrentPage(pageNumber)}
+                            >
+                                {pageNumber}
+                            </Button>
+                        ))}
+
+                        <ArrowRightCircle
+                            className={`m-2 ${isLast ? "disabled text-secondary" : "text-white page-arrow"}`}
+                            size={36}
+                            onClick={isLast ? null : () => setCurrentPage(currentPage + 1)}
+                        />
+                    </div>
                 </>)
                 :
                 ( <div className="empty-cart d-flex flex-column align-items-center">
