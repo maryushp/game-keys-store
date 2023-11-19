@@ -71,19 +71,17 @@ const Header = ({updateCategory, selectedCategory, setInputResult}) => {
                     <Image src="../img/logo.png" className="sc-image d-none d-lg-block"></Image>
                 </Link>
                 <List onClick={toggleMenu} color="white" size="36" className="d-block d-lg-none click-icon"/>
-                <Tag onClick={() => handleButtonCategories()} color="white" size="28" className="d-block d-lg-none mt-1  mx-md-3 click-icon"/>
+                {location.pathname === '/' &&
+                    <Tag onClick={() => handleButtonCategories()} color="white" size="28" className="d-block d-lg-none mt-1  mx-md-3 click-icon"/>
+                }
+
             </div>
 
             <div
                 className="d-flex flex-wrap col-9 col-md-8  col-lg-7 p-3 align-items-center justify-content-center gap-5">
 
                 <div className="d-none d-lg-block">
-
-                    {location.pathname.includes("/game") || location.pathname.includes("/cart") || location.pathname.includes("/orders") || location.pathname.includes("/new-item") || location.pathname.includes("/all-orders") || location.pathname.includes("/update-categories") ?
-                        (
-                            <></>
-                        )
-                        :
+                    {location.pathname === '/' &&
                         (
                             <Button variant="outline-secondary"
                                     className="button btn btn-outline-light rounded-5 fw-bolder border-2"
@@ -92,10 +90,9 @@ const Header = ({updateCategory, selectedCategory, setInputResult}) => {
                             </Button>
                         )
                     }
-
                 </div>
-                {location.pathname.includes("/game") || location.pathname.includes("/cart") || location.pathname.includes("/orders") || location.pathname.includes("/new-item") || location.pathname.includes("/all-orders") || location.pathname.includes("/update-categories") ?
-                    (<></>) :
+
+                {location.pathname === '/' &&
                     (
                         <div
                             className={`w-100 d-flex flex-wrap position-absolute justify-content-center gap-3 align-items-center p-5 dropdown ${isOpen ? 'dropdown-animation show' : 'dropdown-animation'}`}>
