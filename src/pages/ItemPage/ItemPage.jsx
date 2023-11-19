@@ -1,12 +1,12 @@
 import React, {useEffect, useState} from "react";
 import {useParams, useNavigate} from "react-router-dom";
-import "../styles/ItemPage.css"
-import {getItemById, deleteItem} from "../utils/ItemsAPI";
+import "./ItemPage.css"
+import {getItemById, deleteItem} from "../../utils/api/ItemsAPI";
 import {ClipLoader} from "react-spinners";
 import {Button, Image, Modal} from "react-bootstrap";
 import {Cart, Check} from "react-bootstrap-icons";
 import {toast} from 'react-toastify';
-import {setCookie, getCookie} from '../utils/CookiesManager'
+import {setCookie, getCookie} from '../../utils/CookiesManager'
 
 const ItemPage = ({updateCategory}) => {
     const {id} = useParams();

@@ -1,10 +1,10 @@
 import React, {useRef, useState} from "react";
 import {Button} from "react-bootstrap";
-import "../styles/AuthPanel.css"
+import "./AuthPanel.css"
 import {Input} from "reactstrap";
-import {authenticate, register} from "../utils/AuthApi";
-import {getUser} from "../utils/UserApi";
-import {setCookie, removeCookie} from '../utils/CookiesManager'
+import {authenticate, register} from "../../utils/api/AuthApi";
+import {getUser} from "../../utils/api/UserApi";
+import {setCookie, removeCookie} from '../../utils/CookiesManager'
 import {Link} from "react-router-dom";
 
 const AuthPanel = () => {

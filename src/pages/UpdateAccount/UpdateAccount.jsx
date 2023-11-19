@@ -1,10 +1,10 @@
 import React, {useEffect, useState} from "react";
-import "../styles/DefaultPage.css"
-import Spinner from "../components/Spinner";
+import "../../styles/DefaultPage.css"
+import Spinner from "../../components/Spinner/Spinner";
 import {useNavigate} from "react-router-dom";
 import {Input} from "reactstrap";
 import {Button} from "react-bootstrap";
-import {updateAccount} from "../utils/UserApi";
+import {updateAccount} from "../../utils/api/UserApi";
 import {toast} from "react-toastify";
 
 const UpdateAccount = () => {

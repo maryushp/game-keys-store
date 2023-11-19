@@ -1,4 +1,4 @@
-import "../styles/Spinner.css"
+import "./Spinner.css"
 import {ClipLoader} from "react-spinners";
 import React from "react";
 

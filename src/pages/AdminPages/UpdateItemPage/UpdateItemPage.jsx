@@ -1,13 +1,13 @@
 import React, {useEffect, useState} from "react";
 import {useParams, useNavigate} from "react-router-dom";
-import {getItemById, updateItem} from "../utils/ItemsAPI";
-import "../styles/UpdateItemPage.css"
+import {getItemById, updateItem} from "../../../utils/api/ItemsAPI";
+import "./UpdateItemPage.css"
 import {Button, Form, Image, InputGroup} from "react-bootstrap"
 import {Input} from "reactstrap";
-import {getAllCategories} from "../utils/CategoriesAPI";
+import {getAllCategories} from "../../../utils/api/CategoriesAPI";
 import {toast} from "react-toastify";
-import "../styles/DefaultPage.css"
-import Spinner from "../components/Spinner";
+import "../../../styles/DefaultPage.css"
+import Spinner from "../../../components/Spinner/Spinner";
 
 const UpdateItemPage = () => {
     const {id} = useParams();

@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
-import {getAllCategories, updateCategory} from "../utils/CategoriesAPI";
-import "../styles/DefaultPage.css"
-import Spinner from "../components/Spinner";
+import {getAllCategories, updateCategory} from "../../../utils/api/CategoriesAPI";
+import "../../../styles/DefaultPage.css"
+import Spinner from "../../../components/Spinner/Spinner";
 import {useNavigate} from "react-router-dom";
 import {Button} from "react-bootstrap";
 import {Input} from "reactstrap";

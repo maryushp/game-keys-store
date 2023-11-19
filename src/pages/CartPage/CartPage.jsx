@@ -1,14 +1,14 @@
 import React, {useEffect, useState} from "react";
 import {Link, useNavigate} from "react-router-dom";
 import {Button, Image} from "react-bootstrap";
-import {getItemById} from "../utils/ItemsAPI";
+import {getItemById} from "../../utils/api/ItemsAPI";
 import {DashCircle, PlusCircle} from "react-bootstrap-icons";
-import "../styles/CartPage.css";
-import {getCookie, removeCookie, setCookie} from "../utils/CookiesManager";
-import "../styles/DefaultPage.css"
-import {createOrder} from "../utils/OrderAPI";
+import "./CartPage.css";
+import {getCookie, removeCookie, setCookie} from "../../utils/CookiesManager";
+import "../../styles/DefaultPage.css"
+import {createOrder} from "../../utils/api/OrderAPI";
 import {toast} from "react-toastify";
-import Spinner from "../components/Spinner";
+import Spinner from "../../components/Spinner/Spinner";
 
 const CartPage = () => {
     const orderItems = getCookie('cart');

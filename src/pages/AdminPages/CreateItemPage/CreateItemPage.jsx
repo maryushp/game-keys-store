@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
-import "../styles/CreateItemPage.css"
+import "./CreateItemPage.css"
 import {useNavigate} from "react-router-dom"
 import {Button, Form, Image, InputGroup} from 'react-bootstrap'
 import {Input} from "reactstrap";
-import {getAllCategories} from "../utils/CategoriesAPI";
-import {postItem} from "../utils/ItemsAPI";
+import {getAllCategories} from "../../../utils/api/CategoriesAPI";
+import {postItem} from "../../../utils/api/ItemsAPI";
 import {toast} from "react-toastify";
-import "../styles/DefaultPage.css"
+import "../../../styles/DefaultPage.css"
 
 const CreateItemPage = () => {
     const navigate = useNavigate();

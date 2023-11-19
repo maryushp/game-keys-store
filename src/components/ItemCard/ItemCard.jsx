@@ -1,5 +1,5 @@
 import React from "react";
-import "../styles/ItemCard.css"
+import "./ItemCard.css"
 
 import {Image} from "react-bootstrap";
 import {Link} from "react-router-dom";

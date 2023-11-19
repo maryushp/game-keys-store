@@ -1,14 +1,14 @@
 import React, {useEffect, useRef, useState} from "react";
-import "../styles/Header.css"
+import "./Header.css"
 
 import {Input} from "reactstrap";
 import {Cart, List, Tag} from "react-bootstrap-icons";
 import {Image, Button} from "react-bootstrap";
 import {Link, useLocation} from "react-router-dom";
-import {getAllCategories} from "../utils/CategoriesAPI";
+import {getAllCategories} from "../../utils/api/CategoriesAPI";
 import _ from "lodash";
-import AuthPanel from "./AuthPanel";
-import Menu from "./Menu";
+import AuthPanel from "../AuthPanel/AuthPanel";
+import Menu from "../Menu/Menu";
 
 const Header = ({updateCategory, selectedCategory, setInputResult}) => {
     const [isOpen, setIsOpen] = useState(false);

@@ -1,47 +1,40 @@
-import React, { useEffect, useState } from "react";
-import "../styles/OrdersPage.css";
-import "../styles/DefaultPage.css"
-import { getUserOrders } from '../utils/OrderAPI';
+import React, {useEffect, useState} from "react";
+import {useNavigate} from "react-router-dom";
+import "../../../styles/DefaultPage.css"
+import "./OrdersPage.css"
+import {getAllOrders, getOrderById} from "../../../utils/api/OrderAPI";
 import {Button, Image} from "react-bootstrap";
-import {Link, useNavigate  } from "react-router-dom";
-import Spinner from "../components/Spinner";
+import {Input} from "reactstrap";
 import {ArrowLeftCircle, ArrowRightCircle} from "react-bootstrap-icons";
+import {toast} from "react-toastify";
+import Spinner from "../../../components/Spinner/Spinner";
 
-const UserOrdersPage = () => {
-    const userData = JSON.parse(localStorage.getItem('userData'));
-    const id = userData ? userData.id : null;
+const OrdersPage = () => {
     const [orders, setOrders] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
-    const navigate = useNavigate();
-
     const [totalPages, setTotalPages] = useState();
     const [currentPage, setCurrentPage] = useState(1);
     const [isFirst, setIsFirst] = useState(true);
     const [isLast, setIsLast] = useState();
     const pageNumbers = Array.from({ length: totalPages }, (_, index) => index + 1);
+    const navigate = useNavigate();
 
-    useEffect(() => {
-        if (!userData) {
-            navigate("/");
-            return;
+    const [id, setId] = useState("");
+
+    const handleData = (data) => {
+        if(data.content) {
+            setOrders(data.content);
+            setTotalPages(data.totalPages);
+            setIsFirst(data.first);
+            setIsLast(data.last);
         }
-        const fetchData = async () => {
-            try {
-                setIsLoading(true);
-                const userOrders = await getUserOrders(id, currentPage).finally(() => setTimeout(null, 100));
-                setOrders(userOrders.content);
-                setTotalPages(userOrders.totalPages);
-                setIsFirst(userOrders.first);
-                setIsLast(userOrders.last);
-                setIsLoading(false);
-            } catch (error) {
-                console.error(error);
-                setIsLoading(false);
-            }
-        };
-
-        fetchData();
-    }, [id, currentPage]);
+        else {
+            setOrders([data]);
+            setTotalPages(1);
+            setIsFirst(true);
+            setIsLast(true);
+        }
+    }
 
     const formattedDate = (dateString) => {
         const options = {
@@ -54,18 +47,68 @@ const UserOrdersPage = () => {
         return new Date(dateString).toLocaleString(undefined, options).replace(/,/g, '');
     };
 
+    useEffect(() => {
+        setIsLoading(true);
+        if(!localStorage.getItem('userData')) {
+            navigate("/");
+        } else if (JSON.parse(localStorage.getItem('userData')).role !== "ADMIN") {
+            navigate("/");
+        }
+        getAllOrders(currentPage, 6)
+            .then((data) => handleData(data))
+            .catch((error) => console.log(error))
+            .finally(() => setTimeout(() => setIsLoading(false), 100));
+    }, [currentPage]);
+
+    const handleSearchByID = () => {
+        getOrderById(id)
+            .then((data) => handleData(data))
+            .catch(() => toast.error('Order not found!', {
+                position: 'bottom-right',
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: 'dark',
+            }))
+            .finally(() => setTimeout(() => setIsLoading(false), 100));
+    }
+
+    const findAll = () => {
+        setId("");
+        getAllOrders(currentPage, 6)
+            .then((data) => handleData(data))
+            .catch((error) => console.log(error))
+            .finally(() => setTimeout(() => setIsLoading(false), 100));
+    }
 
     return (
         <div className="d-flex flex-column default-page">
             {isLoading ? (
                 <Spinner/>
-            ) : orders.length > 0 ?
-                (<>
+            ) :
+                <>
+                    <div className="d-flex flex-wrap justify-content-center my-5 gap-3">
+                        <Input className="rounded-5 w-25 input-text border-0"
+                               placeholder="ID"
+                               onChange={(e) => setId(e.target.value)}
+                               value={id}
+                        />
+                        <Button className="rounded-5 fw-bolder" onClick={() => handleSearchByID()}>Search</Button>
+                        <Button variant="danger" className="rounded-5 fw-bolder" onClick={() => findAll()}>Clear</Button>
+                    </div>
+
                     {orders.map((order) => (
                         <div key={order.id} className="d-flex flex-column text-white my-4">
 
                             <div className="col-12 text-center">
                                 <h1>Order #{order.id}</h1>
+                            </div>
+
+                            <div>
+                                <h3 className="fw-semibold text-center">{order.user.email}</h3>
                             </div>
 
                             <div className="d-flex flex-wrap align-items-center mt-4">
@@ -91,6 +134,7 @@ const UserOrdersPage = () => {
                             <hr></hr>
                         </div>
                     ))}
+
                     <div className="mt-5 d-flex flex-wrap justify-content-center mb-5">
                         <ArrowLeftCircle
                             className={`m-2 ${isFirst ? "disabled text-secondary" : "text-white page-arrow"}`}
@@ -115,18 +159,13 @@ const UserOrdersPage = () => {
                             onClick={isLast ? null : () => setCurrentPage(currentPage + 1)}
                         />
                     </div>
-                </>)
-                :
-                ( <div className="empty-cart d-flex flex-column align-items-center">
-                    <h1 className="text-white text-center">You have no orders :(</h1>
-                    <Link to="/" className="my-5">
-                        <Button variant="success" className="rounded-5 fw-bolder">
-                            GO SHOPPING
-                        </Button>
-                    </Link>
-                </div>)}
+
+                </>
+
+            }
+
         </div>
-    );
+    )
 }
 
-export default UserOrdersPage;
+export default OrdersPage;

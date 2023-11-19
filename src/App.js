@@ -1,18 +1,18 @@
 import React from "react";
 import {Routes, Route } from "react-router-dom";
-import Header from "./components/Header";
-import HomePage from "./pages/HomePage";
-import ItemPage from "./pages/ItemPage";
-import CartPage from "./pages/CartPage";
+import Header from "./components/Header/Header";
+import HomePage from "./pages/HomePage/HomePage";
+import ItemPage from "./pages/ItemPage/ItemPage";
+import CartPage from "./pages/CartPage/CartPage";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import Footer from "./components/Footer";
-import UserOrdersPage from "./pages/UserOrdersPage";
-import CreateItemPage from "./pages/CreateItemPage";
-import UpdateItemPage from "./pages/UpdateItemPage";
-import OrdersPage from "./pages/OrdersPage";
-import UpdateCategoriesPage from "./pages/UpdateCategoriesPage";
-import UpdateAccount from "./pages/UpdateAccount";
+import Footer from "./components/Footer/Footer";
+import UserOrdersPage from "./pages/UserOrdersPage/UserOrdersPage";
+import CreateItemPage from "./pages/AdminPages/CreateItemPage/CreateItemPage";
+import UpdateItemPage from "./pages/AdminPages/UpdateItemPage/UpdateItemPage";
+import OrdersPage from "./pages/AdminPages/OrdersPage/OrdersPage";
+import UpdateCategoriesPage from "./pages/AdminPages/UpdateCategoriesPage/UpdateCategoriesPage";
+import UpdateAccount from "./pages/UpdateAccount/UpdateAccount";
 
 function App() {
 

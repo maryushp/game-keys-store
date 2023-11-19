@@ -1,7 +1,7 @@
 import React, {useState} from "react";
-import "../styles/Menu.css"
+import "./Menu.css"
 import {Button} from "react-bootstrap";
-import AuthPanel from "./AuthPanel";
+import AuthPanel from "../AuthPanel/AuthPanel";
 import {useNavigate} from "react-router-dom";
 
 const Menu = () => {
