@@ -1,0 +1,11 @@
+.image-preview-default {
+    height: 40vh;
+    width: 18rem;
+    background-color: white;
+}
+
+.image-preview {
+    height: 30rem;
+    width: 20rem;
+    object-fit: cover;
+}

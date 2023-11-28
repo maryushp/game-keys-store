@@ -1,0 +1,51 @@
+header {
+    height: 7rem;
+    align-items: center;
+    background-color: rgba(32, 31, 32, 0.93);
+}
+.sc-image {
+    height: 5rem;
+    object-fit: cover;
+    margin-left: 1rem;
+    user-select: none;
+}
+.input {
+    background-color: rgba(255, 252, 252, 0.34);
+    padding: 0.5rem 0.5rem 0.5rem 1rem;
+    font-size: 1.25rem;
+}
+.input:not(:focus ){
+    color: white;
+    outline: none;
+}
+.button {
+    padding: 0.5rem;
+}
+
+.button-category-nav{
+    width: 10rem;
+    height: 3rem;
+}
+
+.dropdown {
+    top: 7rem;
+    left:0;
+    background-color: rgba(32, 31, 32, 0.91);
+}
+
+.dropdown-animation {
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-20px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.dropdown-animation.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.click-icon {
+    cursor: pointer;
+}

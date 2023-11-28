@@ -1,0 +1,35 @@
+.item {
+    position: relative;
+    height: 35rem;
+    width: 20rem;
+    user-select: none;
+
+}
+
+.item-image {
+    height: 30rem;
+    width: 20rem;
+    object-fit: cover;
+    user-select: none;
+    transition: all 0.3s;
+}
+
+.description-container{
+    display: none;
+    position: absolute;
+    width: 20rem;
+    top: 10rem;
+    z-index: 2;
+}
+
+.item:hover .info-container{
+    display: none;
+}
+.item:hover .description-container{
+    display: block;
+}
+.item:hover .item-image{
+    transform: scale(1.10);
+    transition: all 0.3s;
+    -webkit-filter: brightness(20%);
+}

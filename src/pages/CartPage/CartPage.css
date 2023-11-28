@@ -1,0 +1,12 @@
+.empty-cart {
+    margin-top: 26vh;
+}
+
+.item-small-image {
+    height: 10rem;
+    width: 8rem;
+}
+
+.icon-buttons {
+    cursor: pointer;
+}

@@ -1,0 +1,24 @@
+.home-page {
+    display: flex;
+    flex-wrap: wrap;
+
+    min-height: 80vh;
+    width: 80%;
+    margin-top: 10vh;
+    margin-left: 10%;
+    gap: 5rem;
+}
+
+.main-text {
+    margin-top: 10rem;
+    user-select: none;
+    font-family: Inter, sans-serif;
+}
+
+.spinner {
+    padding: 26rem 10% 46vh;
+}
+
+.page-arrow {
+    cursor: pointer;
+}
