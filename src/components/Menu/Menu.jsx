@@ -29,12 +29,15 @@ const Menu = () => {
                         {localStorage.getItem('userData') ? "Account" : "Sign In"}
                     </Button>
 
-                    <Button
-                        className="text-center text-white rounded-5 w-25 my-4"
-                        onClick={toCart}
-                    >
-                        Cart
-                    </Button>
+                    {localStorage.getItem('userData') &&
+                        <Button
+                            className="text-center text-white rounded-5 w-25 my-4"
+                            onClick={toCart}
+                        >
+                            Cart
+                        </Button>
+                    }
+
 
                 </div>
             }
