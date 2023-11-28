@@ -1,6 +1,6 @@
 export const createOrder = (cartData) => {
 
-    return fetch(`http://localhost:8080/order`, {
+    return fetch(process.env.REACT_APP_API_URL + `/order`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -19,7 +19,7 @@ export const createOrder = (cartData) => {
 
 export const getUserOrders = async (id, page) => {
     try {
-        const response = await fetch(`http://localhost:8080/user/${id}/orders?size=4&page=${page-1}`);
+        const response = await fetch(process.env.REACT_APP_API_URL + `/user/${id}/orders?size=4&page=${page-1}`);
         if (!response.ok) {
             throw new Error('Failed to fetch orders');
         }
@@ -32,7 +32,7 @@ export const getUserOrders = async (id, page) => {
 
 export const getAllOrders = async (page, size) => {
     try {
-        const response = await fetch(`http://localhost:8080/order?size=${size}&page=${page-1}`);
+        const response = await fetch(process.env.REACT_APP_API_URL + `/order?size=${size}&page=${page-1}`);
         if (!response.ok) {
             throw new Error('Failed to fetch orders');
         }
@@ -45,7 +45,7 @@ export const getAllOrders = async (page, size) => {
 
 export const getOrderById = async (id) => {
     try {
-        const response = await fetch(`http://localhost:8080/order/${id}`);
+        const response = await fetch(process.env.REACT_APP_API_URL + `/order/${id}`);
         if (!response.ok) {
             throw new Error('Failed to fetch order');
         }

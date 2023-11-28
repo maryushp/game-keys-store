@@ -80,7 +80,7 @@ class FetchInterceptors {
 
         if (refreshToken) {
             try {
-                const newTokenResponse = await fetch('http://localhost:8080/auth/refresh-token', {
+                const newTokenResponse = await fetch(process.env.REACT_APP_API_URL + '/auth/refresh-token', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',

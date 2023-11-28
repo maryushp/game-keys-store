@@ -1,6 +1,6 @@
 export const getAllCategories = async () => {
     try {
-        const response = await fetch(`http://localhost:8080/category?10`);
+        const response = await fetch(process.env.REACT_APP_API_URL + `/category?10`);
         if (!response.ok) {
             throw new Error('Failed to fetch categories');
         }
@@ -14,7 +14,7 @@ export const getAllCategories = async () => {
 export const getItemsByCategories = async (categories, page, size) => {
     try {
         const catIds = categories.map(item => item).join(',');
-        const response = await fetch(`http://localhost:8080/item/search/by-categories?catIds=${catIds}&page=${page-1}&size=${size}`);
+        const response = await fetch(process.env.REACT_APP_API_URL + `/item/search/by-categories?catIds=${catIds}&page=${page-1}&size=${size}`);
         if (!response.ok) {
             throw new Error('Failed to fetch items');
         }
@@ -26,7 +26,7 @@ export const getItemsByCategories = async (categories, page, size) => {
 }
 
 export const updateCategory = (name, id) => {
-    const url = `http://localhost:8080/category/${id}`;
+    const url = process.env.REACT_APP_API_URL + `/category/${id}`;
 
     const requestBody = JSON.stringify({ name });
 

@@ -1,6 +1,6 @@
 export const getAllItems = async (data, size) => {
     try {
-        const response = await fetch(`http://localhost:8080/item?size=${size}&page=${data-1}`);
+        const response = await fetch(process.env.REACT_APP_API_URL + `/item?size=${size}&page=${data-1}`);
         if (!response.ok) {
             throw new Error('Failed to fetch items');
         }
@@ -13,7 +13,7 @@ export const getAllItems = async (data, size) => {
 
 export const getItemById = async (id) => {
     try {
-        const response = await fetch(`http://localhost:8080/item/${id}`);
+        const response = await fetch(process.env.REACT_APP_API_URL + `/item/${id}`);
         if (!response.ok) {
             throw new Error('Failed to fetch item');
         }
@@ -26,7 +26,7 @@ export const getItemById = async (id) => {
 
 export const searchItemsByName = async (input, page, size) => {
     try {
-        const response = await fetch(`http://localhost:8080/item/search/by-name?name=${input}&size=${size}&page=${page - 1}`);
+        const response = await fetch(process.env.REACT_APP_API_URL + `/item/search/by-name?name=${input}&size=${size}&page=${page - 1}`);
         if (!response.ok) {
             throw new Error('Failed to fetch items');
         }
@@ -38,7 +38,7 @@ export const searchItemsByName = async (input, page, size) => {
 }
 
 export const postItem = (formData) => {
-    const url = `http://localhost:8080/item`;
+    const url = process.env.REACT_APP_API_URL + `/item`;
 
     return fetch(url, {
         method: 'POST',
@@ -56,7 +56,7 @@ export const postItem = (formData) => {
 };
 
 export const deleteItem = (itemId) => {
-    const url = `http://localhost:8080/item/${itemId}`;
+    const url = process.env.REACT_APP_API_URL + `/item/${itemId}`;
 
     fetch(url, {
         method: 'DELETE',
@@ -76,7 +76,7 @@ export const deleteItem = (itemId) => {
 };
 
 export const updateItem = (formData, id) => {
-    const url = `http://localhost:8080/item/${id}`;
+    const url = process.env.REACT_APP_API_URL + `/item/${id}`;
 
     return fetch(url, {
         method: 'PATCH',

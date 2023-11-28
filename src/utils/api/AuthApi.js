@@ -1,6 +1,6 @@
 export const authenticate = async (email, password) => {
     try {
-        const url = 'http://localhost:8080/auth/authenticate';
+        const url = process.env.REACT_APP_API_URL + '/auth/authenticate';
         const data = {
             email: email,
             password: password
@@ -27,7 +27,7 @@ export const authenticate = async (email, password) => {
 
 export const register = async (name, surname, email, password) => {
     try {
-        const url = 'http://localhost:8080/auth/register';
+        const url = process.env.REACT_APP_API_URL + '/auth/register';
         const data = {
             firstname: name,
             lastname: surname,

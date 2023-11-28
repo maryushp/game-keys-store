@@ -1,6 +1,6 @@
 export const getUser = async (id) => {
     try {
-        const response = await fetch(`http://localhost:8080/user/${id}`);
+        const response = await fetch(process.env.REACT_APP_API_URL + `/user/${id}`);
         if (!response.ok) {
             throw new Error('Failed to fetch items');
         }
@@ -12,7 +12,7 @@ export const getUser = async (id) => {
 };
 
 export const updateAccount = (id, formData) => {
-    const url = `http://localhost:8080/user/${id}`;
+    const url = process.env.REACT_APP_API_URL + `/user/${id}`;
 
     return fetch(url, {
         method: 'PATCH',
